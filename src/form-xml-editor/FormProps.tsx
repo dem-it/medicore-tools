@@ -17,8 +17,8 @@ interface FormProps {
 
     parsedXmlContent: FormElement | undefined;
 
-    selectedElementIndex: number;
-    setSelectedElementIndex: (index: number) => void;
+    selectedElementPath: string | undefined;
+    setSelectedElementPath: (path: string) => void;
 
 }
 

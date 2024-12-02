@@ -3,6 +3,11 @@
  */
 interface FormElement {
     /**
+     * The index of the form element within the form structure.
+     */
+    index: number;
+
+    /**
      * The type of the form element (e.g., 'input', 'select', etc.).
      */
     name: string;
@@ -23,7 +28,7 @@ interface FormElement {
      * Additional properties for the form element.
      * This field is optional and can contain any key-value pairs.
      */
-    properties?: Record<string, any>;
+    attributes?: Record<string, string>;
 
     /**
      * Child form elements nested within this form element.

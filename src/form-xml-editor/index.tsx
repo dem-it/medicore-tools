@@ -1,7 +1,8 @@
 import { Grid, Stack } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
 import FormElement from "../interfaces/FormElement";
-import XMLParserService from "../services/XmlParserService";
+import XMLParserService from "../services/ConstructXmlService";
+import ParseXmlElementService from "../services/ParseXmlElementService";
 import FormProps from "./FormProps";
 import Properties from "./Properties";
 import Result from "./Result";
@@ -11,7 +12,7 @@ function FormXmlEditor() {
   const [xmlContent, setXmlContent] = useState('')
   const [parsedXmlContent, setParsedXmlContent] = useState<FormElement | undefined>(undefined)
   const [tempXmlContent, setTempXmlContent] = useState('')
-  const [selectedElementIndex, setSelectedElementIndex] = useState(-1)
+  const [selectedElementPath, setSelectedElementPath] = useState<string | undefined>(undefined)
 
   const xmlParser = useMemo(() => new XMLParserService(), []);
 
@@ -19,8 +20,8 @@ function FormXmlEditor() {
     sx: {},
     xmlContent,
     parsedXmlContent,
-    selectedElementIndex,
-    setSelectedElementIndex,
+    selectedElementPath,
+    setSelectedElementPath,
   };
 
   const hasXml = xmlContent.length > 0;
@@ -31,7 +32,7 @@ function FormXmlEditor() {
       return
 
     try {
-      const parsedXml = xmlParser.parseXML(tempXmlContent)
+      const parsedXml = new ParseXmlElementService(tempXmlContent).parseXML()
       setParsedXmlContent(parsedXml)
       const xml = xmlParser.constructXml(parsedXml)
       setXmlContent(xml)
