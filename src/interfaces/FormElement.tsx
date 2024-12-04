@@ -28,7 +28,7 @@ interface FormElement {
      * Additional properties for the form element.
      * This field is optional and can contain any key-value pairs.
      */
-    attributes?: Record<string, string>;
+    attributes: Record<string, string>;
 
     /**
      * Child form elements nested within this form element.

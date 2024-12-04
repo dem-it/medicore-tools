@@ -2,26 +2,41 @@ import { Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
 import { useEffect, useState } from "react";
 import FormElement from "../interfaces/FormElement";
 import FormElementService from "../services/FormElementService";
-import FormProps from "./FormProps";
+import { useFormData } from "./FormDataContext/FormDataProvider";
+import { FormProps } from "./Interfaces";
 import Property from "./Property";
 
 function Properties(props: FormProps) {
 
+  const { selectedElementPath, parsedXmlContent } = useFormData()
 
   const [selectedElement, setSelectedElement] = useState<FormElement | undefined>(undefined)
   const [properties, setProperties] = useState<Record<string, string>>({})
 
   useEffect(() => {
-    if (!props.selectedElementPath)
+    if (!selectedElementPath)
+    {
+      setSelectedElement(undefined)
+    } 
+    else
+    {
+      const service = new FormElementService(parsedXmlContent!)
+      const element = service.getByPath(selectedElementPath)
+      setSelectedElement(element)
+    }
+    
+    setProperties({})
+  }, [selectedElementPath])
+
+  useEffect(() => {
+    if (!selectedElementPath)
       return
 
-    const service = new FormElementService(props.parsedXmlContent!)
-    const element = service.getByPath(props.selectedElementPath)
-
+    const service = new FormElementService(parsedXmlContent!)
+    const element = service.getByPath(selectedElementPath)
     setProperties(element?.attributes || {})
-    setSelectedElement(element)
 
-  }, [props.selectedElementPath])
+  }, [properties])
 
   if (selectedElement === undefined)
     return <></>
@@ -40,16 +55,18 @@ function Properties(props: FormProps) {
 
             {!hasProperties && <p>Geen eigenschappen gevonden om aan te passen.</p>}
 
-            {hasProperties && <Grid container spacing={2}>
-              {Object.entries(properties).map(([key, value]) => (
-                <Property key={key}
-                  path={props.selectedElementPath!}
-                  name={key}
-                  value={value}
-                />
-              ))}
+            <Grid container spacing={2}>
+              {Object.entries(properties)
+                .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+                .map(([key, value]) => (
+                  <Property
+                    key={`${selectedElementPath}-${key}`}
+                    path={selectedElementPath!}
+                    name={key}
+                    value={value}
+                  />
+                ))}
             </Grid>
-            }
           </Stack>
         </CardContent>
       </Card>

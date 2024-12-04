@@ -1,47 +1,28 @@
 import { Grid, Stack } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import FormElement from "../interfaces/FormElement";
-import XMLParserService from "../services/ConstructXmlService";
-import ParseXmlElementService from "../services/ParseXmlElementService";
-import FormProps from "./FormProps";
+import { FormDataProvider, useFormData } from "./FormDataContext/FormDataProvider";
+import { FormProps } from "./Interfaces";
 import Properties from "./Properties";
 import Result from "./Result";
 import Xml from "./Xml";
 
 function FormXmlEditor() {
-  const [xmlContent, setXmlContent] = useState('')
-  const [parsedXmlContent, setParsedXmlContent] = useState<FormElement | undefined>(undefined)
-  const [tempXmlContent, setTempXmlContent] = useState('')
-  const [selectedElementPath, setSelectedElementPath] = useState<string | undefined>(undefined)
 
-  const xmlParser = useMemo(() => new XMLParserService(), []);
+  return <FormDataProvider>
+    <FormXmlEditorWithContext />
+  </FormDataProvider>
+}
+
+function FormXmlEditorWithContext() {
+
+  const {
+    xmlContent
+  } = useFormData();
 
   const formProps: FormProps = {
-    sx: {},
-    xmlContent,
-    parsedXmlContent,
-    selectedElementPath,
-    setSelectedElementPath,
-  };
+    sx: {}
+  }
 
-  const hasXml = xmlContent.length > 0;
-
-  useEffect(() => {
-
-    if (tempXmlContent.length === 0)
-      return
-
-    try {
-      const parsedXml = new ParseXmlElementService(tempXmlContent).parseXML()
-      setParsedXmlContent(parsedXml)
-      const xml = xmlParser.constructXml(parsedXml)
-      setXmlContent(xml)
-    }
-    catch {
-      setXmlContent(tempXmlContent)
-    }
-
-  }, [tempXmlContent, xmlParser])
+  const hasXml = xmlContent.length > 0
 
   return (
     <>
@@ -59,12 +40,12 @@ function FormXmlEditor() {
         <Grid item lg={6}>
           <Stack spacing={2} direction='column'>
             {hasXml && <Properties {...formProps} />}
-            <Xml {...formProps} setXmlContent={setTempXmlContent} />
+            <Xml {...formProps} />
           </Stack>
         </Grid>
         <Grid item lg={6}>
           {hasXml && (
-            <Result {...formProps} sx={{ height: '100%' }} />
+            <Result sx={{ height: '100%' }} />
           )}
         </Grid>
       </Grid>

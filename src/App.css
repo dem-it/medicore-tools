@@ -55,3 +55,12 @@ body {
 .MuiListItem-root .MuiListItemIcon-root {
   min-width: 35px
 }
+
+.result-xml .selectable:hover {
+  border: 2px solid #d72020;
+  cursor: pointer;
+}
+
+.result-xml .selected {
+  border: 1px solid #3ae082;
+}

@@ -2,32 +2,32 @@ import FormElement from "../interfaces/FormElement";
 
 class FormElementService  
 {
-    private formElement: FormElement;
+    public formElement: FormElement;
 
     constructor(formElement: FormElement) {
         this.formElement = formElement;
     }
 
-    getAllUnnestedElements(): FormElement[] {
-        return this.getUnnestedElementsRecursive(this.formElement)
+    getByPath(path: string): FormElement | undefined {
+        return this.getByPathRecursive(this.formElement, path)
     }
 
-    private getUnnestedElementsRecursive(element: FormElement): FormElement[] {
-        const unnestedElements: FormElement[] = []
-
-        unnestedElements.push(element)
-
+    getByPathRecursive(element: FormElement, path: string): FormElement | undefined {
+        //loop through the elements and return the element with the matching path
+        if (element.path === path) {
+            return element;
+        }
+        
+        //if the element has children, loop through the children
         if (element.children) {
             for (const child of element.children) {
-                unnestedElements.push(...this.getUnnestedElementsRecursive(child))
+                const childResult = this.getByPathRecursive(child, path)
+                if(childResult)
+                    return childResult
             }
         }
 
-        return unnestedElements
-    }
-
-    getByPath(path: string): FormElement | undefined {
-        return this.getAllUnnestedElements().find((element) => element.path === path)
+        return undefined
     }
 }
 

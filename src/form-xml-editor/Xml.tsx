@@ -1,37 +1,35 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, ButtonProps, Card, CardContent, CardHeader, Stack, TextField } from "@mui/material";
+import { Card, CardContent, CardHeader, Stack, TextField } from "@mui/material";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import { useEffect, useRef, useState } from "react";
 import XMLViewer from 'react-xml-viewer';
-import FormElement from "../interfaces/FormElement";
-import FormProps from "./FormProps";
+import ParseXmlElementService from '../services/ParseXmlElementService';
+import { useFormData } from './FormDataContext/FormDataProvider';
+import { FormProps } from './Interfaces';
+import XmlElement from './XmlElement';
 
-interface XmlFormProps extends FormProps {
-  /**
-   * Callback function to update the XML content.
-   * @param content - The new XML content.
-   */
-  setXmlContent: (content: string) => void;
-}
+function Xml(props: FormProps) {
 
-function Xml(props: XmlFormProps) {
-
-  const [xml, setXml] = useState(props.xmlContent)
+  const { 
+    xmlContent, 
+    parsedXmlContent, 
+    selectedElementPath, 
+    setSelectedElementPath,
+    setParsedXmlContent
+   } = useFormData()
+  const [xml, setXml] = useState(xmlContent)
   const textFieldRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    console.log("XML content changed")
-    if (xml !== props.xmlContent)
-      setXml(props.xmlContent)
-  }, [props.xmlContent])
+    if (xml === xmlContent)
+      return
 
-  // const onBlur = () => {
-  //   if (xml !== props.xmlContent)
-  //     props.setXmlContent(xml)
-  // }
+    setXml(xmlContent)
+  }, [xmlContent])
 
+  
   function xmlFileSelected(e: any) {
     const file = e.target.files?.[0]
     if (file) {
@@ -39,8 +37,9 @@ function Xml(props: XmlFormProps) {
       reader.onload = (event) => {
         const text = event.target?.result
         if (text) {
-          setXml(text as string)
-          props.setXmlContent(text as string)
+          const parsedContent = new ParseXmlElementService(text as string).parseXML()
+          setParsedXmlContent(parsedContent)
+          setSelectedElementPath("")
         }
 
         // clean the input file
@@ -107,82 +106,16 @@ function Xml(props: XmlFormProps) {
 
           <h2>Elementen</h2>
 
-          {PrintSingleElement(props.parsedXmlContent as FormElement, props)}
+          <XmlElement 
+            selectedElementPath={selectedElementPath}
+            element={parsedXmlContent}
+            setSelectedElementPath={setSelectedElementPath}
+            />
+
         </CardContent>
       </Card>
     </>
   );
-}
-
-function PrintSingleElement(element: FormElement, props: FormProps) {
-
-  if (!element)
-    return <></>
-
-  const onButtonClick = (path: string) => {
-    console.log("Click", path)
-    props.setSelectedElementPath(path)
-  }
-
-  const hasText = element.children?.length === 0
-  const elementHtmlStart = <>
-    {element.index} -
-    &lt;
-    {element.name}
-    {element.attributes && Object.keys(element.attributes).map((key) => {
-      return <span style={{ paddingLeft: '2px' }}
-        key={`property-${element.path}-${key}`}>
-        {key}="{element.attributes ? element.attributes[key] : ''}"
-      </span>
-    })}
-    &gt;
-  </>
-  const elementHtmlEnd = <>
-    &lt;/{element.name}&gt;
-  </>
-
-  const buttonProps: ButtonProps = {
-    size: 'small',
-    style: {
-      textTransform: 'none'
-    },
-    variant: props.selectedElementPath === element.path ? 'outlined' : 'text',
-    onClick: () => onButtonClick(element.path)
-  }
-
-  return (
-    <div style={{
-      marginLeft: '8px'
-    }}
-      title={element.path}>
-
-      {hasText && <Button {...buttonProps}>
-        {elementHtmlStart}
-        {element.innerText}
-        {elementHtmlEnd}
-      </Button>
-      }
-
-      {!hasText && <>
-        <Button {...buttonProps}>
-          {elementHtmlStart}
-        </Button>
-
-        {element.children?.map((child) => {
-          const result = PrintSingleElement(child, props)
-
-          return <div key={`child-${child.path}`}>
-            {result}
-          </div>
-        })}
-
-        <Button {...buttonProps}>
-          {elementHtmlEnd}
-        </Button>
-      </>
-      }
-    </div>
-  )
 }
 
 export default Xml;
