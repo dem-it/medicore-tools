@@ -2,7 +2,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DescriptionIcon from '@mui/icons-material/Description';
 import HomeIcon from '@mui/icons-material/Home';
-import { Button, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Button, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -33,17 +33,22 @@ function SideMenu({ width, setWidth }: { width: number, setWidth: (width: number
                 }}
             >
                 <List sx={{ overflowX: 'hidden' }}>
+                    <ListItem component={Box}>
+                        <div style={{ borderBottom: '2px solid white', paddingBottom: '8px' }}>
+                            <b>M++</b>
+                        </div>
+                    </ListItem>
                     <ListItem component={Link} to="/">
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
                         {open && <ListItemText primary="Home" />}
                     </ListItem>
-                    <ListItem 
-                        component={Link} 
+                    <ListItem
+                        component={Link}
                         to='/form-xml-editor'
                         title='Form XML Editor'
-                        >
+                    >
                         <ListItemIcon>
                             <DescriptionIcon />
                         </ListItemIcon>
