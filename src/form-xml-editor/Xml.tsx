@@ -12,13 +12,13 @@ import XmlElement from './XmlElement';
 
 function Xml(props: FormProps) {
 
-  const { 
-    xmlContent, 
-    parsedXmlContent, 
-    selectedElementPath, 
+  const {
+    xmlContent,
+    parsedXmlContent,
+    selectedElementPath,
     setSelectedElementPath,
     setParsedXmlContent
-   } = useFormData()
+  } = useFormData()
   const [xml, setXml] = useState(xmlContent)
   const textFieldRef = useRef<HTMLTextAreaElement>(null)
 
@@ -27,9 +27,11 @@ function Xml(props: FormProps) {
       return
 
     setXml(xmlContent)
+    // Only want to check if xmlContent is Changed
+    // eslint-disable-next-line
   }, [xmlContent])
 
-  
+
   function xmlFileSelected(e: any) {
     const file = e.target.files?.[0]
     if (file) {
@@ -106,11 +108,11 @@ function Xml(props: FormProps) {
 
           <h2>Elementen</h2>
 
-          <XmlElement 
+          <XmlElement
             selectedElementPath={selectedElementPath}
             element={parsedXmlContent}
             setSelectedElementPath={setSelectedElementPath}
-            />
+          />
 
         </CardContent>
       </Card>

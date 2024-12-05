@@ -26,6 +26,9 @@ function Properties(props: FormProps) {
     }
     
     setProperties({})
+    
+    // Only want to check if the selectedElementPath is Changed
+    // eslint-disable-next-line
   }, [selectedElementPath])
 
   useEffect(() => {
@@ -36,6 +39,8 @@ function Properties(props: FormProps) {
     const element = service.getByPath(selectedElementPath)
     setProperties(element?.attributes || {})
 
+    // Only want to check if the properties are Changed
+    // eslint-disable-next-line
   }, [properties])
 
   if (selectedElement === undefined)
