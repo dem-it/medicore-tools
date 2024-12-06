@@ -7,7 +7,7 @@ function Result(props: FormProps) {
 
   const { parsedXmlContent, selectedElementPath, setSelectedElementPath } = useFormData()
 
-  if(parsedXmlContent === undefined)
+  if (parsedXmlContent === undefined)
     return <></>
 
   return (
@@ -16,8 +16,8 @@ function Result(props: FormProps) {
         <CardHeader title="Resultaat voorbeeld" />
         <CardContent>
           <div className="result-xml">
-          <ResultXmlElement 
-              element={parsedXmlContent!} 
+            <ResultXmlElement
+              element={parsedXmlContent!}
               setSelectedElementPath={setSelectedElementPath}
               selectedElementPath={selectedElementPath} />
           </div>

@@ -38,7 +38,7 @@ function FormXmlEditorWithContext() {
         }}
       >
         <Grid item lg={6}>
-          <Stack spacing={2} direction='column'>
+          <Stack spacing={2} direction='column' sx={{ position: 'sticky', top: 0 }}>
             {hasXml && <Properties {...formProps} />}
             <Xml {...formProps} />
           </Stack>

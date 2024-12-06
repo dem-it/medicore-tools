@@ -1,4 +1,4 @@
-export interface CollectionOptionsAttribute {
+export interface CollectionOptionsAttributes {
     name: string;
     visible: boolean;
     label: string;
@@ -7,7 +7,7 @@ export interface CollectionOptionsAttribute {
     exportable: boolean;
 }
 
-export const Construct = (attributes : Record<string, string>): CollectionOptionsAttribute => {
+export const Construct = (attributes : Record<string, string>): CollectionOptionsAttributes => {
     return {
         visible: attributes['visible'] === "true",
         name: attributes['name'],

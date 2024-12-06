@@ -1,4 +1,4 @@
-export interface OptionAttribute {
+export interface OptionAttributes {
     name: string;
     visible: boolean;
     label: string;
@@ -6,7 +6,7 @@ export interface OptionAttribute {
     active: boolean;
 }
 
-export const Construct = (attributes : Record<string, string>): OptionAttribute => {
+export const Construct = (attributes : Record<string, string>): OptionAttributes => {
     return {
         visible: attributes['visible'] === "true",
         name: attributes['name'],

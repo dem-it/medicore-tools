@@ -27,7 +27,7 @@ function Xml(props: FormProps) {
       return
 
     setXml(xmlContent)
-    // Only want to check if xmlContent is Changed
+    // We only need to check if xmlContent is Changed
     // eslint-disable-next-line
   }, [xmlContent])
 
@@ -71,48 +71,60 @@ function Xml(props: FormProps) {
               onChange={xmlFileSelected}
             />
           </Stack>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1-content"
-              id="panel1-header"
-            >
-              XML Viewer
-            </AccordionSummary>
-            <AccordionDetails>
-              <XMLViewer xml={xml} />
-            </AccordionDetails>
-          </Accordion>
 
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2-content"
-              id="panel2-header"
-            >
-              XML Editor
-            </AccordionSummary>
-            <AccordionDetails>
-              <TextField
-                disabled={true}
-                inputRef={textFieldRef}
-                value={xml}
-                // onChange={(e) => setXml(e.target.value)}
-                // onBlur={onBlur}
-                multiline={true}
-                sx={{ width: '100%' }}
-                rows={10}
-              />
-            </AccordionDetails>
-          </Accordion>
+          {xmlContent && <>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                XML Viewer
+              </AccordionSummary>
+              <AccordionDetails>
+                <XMLViewer xml={xml} />
+              </AccordionDetails>
+            </Accordion>
 
-          <h2>Elementen</h2>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
+              >
+                XML Editor
+              </AccordionSummary>
+              <AccordionDetails>
+                <TextField
+                  disabled={true}
+                  inputRef={textFieldRef}
+                  value={xml}
+                  // onChange={(e) => setXml(e.target.value)}
+                  // onBlur={onBlur}
+                  multiline={true}
+                  sx={{ width: '100%' }}
+                  rows={10}
+                />
+              </AccordionDetails>
+            </Accordion>
 
-          <XmlElement
-            selectedElementPath={selectedElementPath}
-            element={parsedXmlContent}
-            setSelectedElementPath={setSelectedElementPath}
-          />
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2-content"
+                id="panel2-header"
+              >
+                XML Elementen
+              </AccordionSummary>
+              <AccordionDetails>
+                <XmlElement
+                  selectedElementPath={selectedElementPath}
+                  element={parsedXmlContent}
+                  setSelectedElementPath={setSelectedElementPath}
+                />
+              </AccordionDetails>
+            </Accordion>
+          </>}
 
         </CardContent>
       </Card>

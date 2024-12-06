@@ -44,11 +44,6 @@ function a11yProps(index: number) {
  */
 const Collection = (props: ResultXmlElementProps) => {
 
-    const [value, setValue] = useState(0)
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue)
-    }
 
     const attributes = Construct(props.element.attributes)
 
@@ -56,7 +51,25 @@ const Collection = (props: ResultXmlElementProps) => {
         return <></>
 
     if (attributes.style === CollectionStyle.Tabs) {
-        return <>
+        return <CollectionTabs {...props} />
+    }
+
+    return <>Oh ja, ook iets mee doen</>
+}
+
+const CollectionTabs = (props: ResultXmlElementProps) => {
+    
+    const [value, setValue] = useState(0)
+    const attributes = Construct(props.element.attributes)
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue)
+        
+        const newPath = props.element.children![newValue] 
+        props.setSelectedElementPath(newPath.path)
+    }
+
+    return <>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                 {props.element.children?.map((child, index) => {
                     const childAttributes = Construct(child.attributes)
@@ -70,9 +83,6 @@ const Collection = (props: ResultXmlElementProps) => {
                 </CustomTabPanel>
             })}
         </>
-    }
-
-    return <>Oh ja, ook iets mee doen</>
 }
 
 export default Collection

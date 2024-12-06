@@ -1,9 +1,10 @@
 import { FormControl, MenuItem } from "@mui/material"
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from "react"
-import { Construct } from "../Attributes/DropdownAttribute"
-import { Construct as ConstructOption } from "../Attributes/OptionAttribute"
+import { Construct } from "../Attributes/DropdownAttributes"
+import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import HeaderLabel from "./HeaderLabel"
 
 /* Example:
 <dropdown name="dropdown" label="Dropdown veld" value="" mandatory="false" visible="true" exportable="true">
@@ -15,7 +16,6 @@ import { ResultXmlElementProps } from "../Interfaces"
 const Dropdown = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
-    const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
 
     const [childPath, setChildPath] = useState('')
 
@@ -30,10 +30,7 @@ const Dropdown = (props: ResultXmlElementProps) => {
 
     return <>
         <FormControl fullWidth>
-            <div className={className}
-                onClick={() => props.setSelectedElementPath(props.element.path)}>
-                <b>{attributes.label}</b>
-            </div>
+            <HeaderLabel {...props} label={attributes.label} />
             <Select
                 id={`dropdown-${props.element.path}`}
                 value={childPath}
@@ -41,9 +38,6 @@ const Dropdown = (props: ResultXmlElementProps) => {
                 onChange={handleChange}>
                 {props.element.children?.map((child, index) => {
                     const childAttributes = ConstructOption(child.attributes)
-
-                    console.log("Child", child.path, childAttributes.label)
-
                     return <MenuItem key={`dropdown-${child.path}`} value={child.path}>{childAttributes.label}</MenuItem>
                 })}
             </Select>

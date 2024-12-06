@@ -1,7 +1,8 @@
 import { Autocomplete, TextField } from "@mui/material"
-import { Construct as ConstructOption } from "../Attributes/OptionAttribute"
-import { Construct } from "../Attributes/SearchSelectAttribute"
+import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
+import { Construct } from "../Attributes/SearchSelectAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import HeaderLabel from "./HeaderLabel"
 
 /* Example:
 <searchselect name="searchselect" label="Selecteer met zoekfunctie" value="" mandatory="false" visible="true" exportable="true">
@@ -13,7 +14,6 @@ import { ResultXmlElementProps } from "../Interfaces"
 const SearchSelect = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
-    const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
 
     if (!attributes.visible)
         return <></>
@@ -28,17 +28,14 @@ const SearchSelect = (props: ResultXmlElementProps) => {
 
 
     return <>
-            <div className={className}
-                onClick={() => props.setSelectedElementPath(props.element.path)}>
-                <b>{attributes.label}</b>
-            </div>
-            <Autocomplete
-                fullWidth
-                disablePortal
-                options={options}
-                sx={{ width: 300 }}
-                onChange={(_, value) => value && props.setSelectedElementPath(value.value)}
-                renderInput={(params) => <TextField {...params} label="Selecteer" />} />
+        <HeaderLabel {...props} label={attributes.label} />
+        <Autocomplete
+            fullWidth
+            disablePortal
+            options={options}
+            sx={{ width: 300 }}
+            onChange={(_, value) => value && props.setSelectedElementPath(value.value)}
+            renderInput={(params) => <TextField {...params} label="Selecteer" />} />
     </>
 }
 

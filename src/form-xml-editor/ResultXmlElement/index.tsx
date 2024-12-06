@@ -3,10 +3,13 @@ import CheckboxCollection from './CheckboxCollection';
 import Collection from './Collection';
 import Date from './Date';
 import Dropdown from './Dropdown';
+import FileUpload from './FileUpload';
 import FixedText from './FixedText';
 import RadiobuttonCollection from './RadiobuttonCollection';
 import SearchSelect from './SearchSelect';
 import TemplateForm from './TemplateForm';
+import Text from './Text';
+import TextMultiline from './TextMultiline';
 
 const ResultXmlElement = (props: ResultXmlElementProps) => {
 
@@ -28,6 +31,24 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
     return <Dropdown {...props} />
   if (element.name === 'searchselect')
     return <SearchSelect {...props} />
+  if (element.name === 'text')
+    return <Text {...props} />
+  if (element.name === 'textarea')
+    return <TextMultiline {...props} />
+  if (element.name === 'fileupload')
+    return <FileUpload {...props} name='Selecteer bestanden' />
+  if (element.name === 'imageupload')
+    return <FileUpload {...props} name='Selecteer afbeelding' />
+
+  if(element.name === 'metadata')
+    return <></>
+
+  const elementsToSkip = [
+    'EmrXmlImport'
+  ]
+
+  if (!elementsToSkip.includes(element.name))
+      console.log(`element.name: '${element.name}'`)
 
   //do nothing just return te rest of the tree
   return <>
