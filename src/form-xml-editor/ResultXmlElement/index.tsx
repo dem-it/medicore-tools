@@ -1,10 +1,12 @@
 import { ResultXmlElementProps } from '../Interfaces';
+import Calculation from './Calculation';
 import CheckboxCollection from './CheckboxCollection';
 import Collection from './Collection';
 import Date from './Date';
 import Dropdown from './Dropdown';
 import FileUpload from './FileUpload';
 import FixedText from './FixedText';
+import Numeric from './Numeric';
 import RadiobuttonCollection from './RadiobuttonCollection';
 import SearchSelect from './SearchSelect';
 import TemplateForm from './TemplateForm';
@@ -39,6 +41,10 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
     return <FileUpload {...props} name='Selecteer bestanden' />
   if (element.name === 'imageupload')
     return <FileUpload {...props} name='Selecteer afbeelding' />
+  if (element.name === 'numeric')
+    return <Numeric {...props} />
+    if (element.name === 'calculation')
+      return <Calculation {...props} />
 
   if(element.name === 'metadata')
     return <></>
@@ -48,7 +54,7 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
   ]
 
   if (!elementsToSkip.includes(element.name))
-      console.log(`element.name: '${element.name}'`)
+      console.log(`Element not implemented: '${element.name}'`)
 
   //do nothing just return te rest of the tree
   return <>

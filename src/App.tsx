@@ -41,7 +41,7 @@ function Index() {
         <br />
         Deze site is gemaakt door <a href='https://www.linkedin.com/in/dennis-rosenbaum/' target='_blank' rel='noreferrer'>Dennis Rosenbaum</a> vanuit <a href='https://www.dem-it.nl' target='_blank' rel='noreferrer'>Dem IT</a> en is Open Source beschikbaar via <a href='https://github.com/dem-it/medicore-tools' target='_blank' rel='noreferrer'>GitHub</a>.
         <br />
-        <b>Issues of problemen:</b> <a href='https://github.com/dem-it/medicore-tools/issues' target='_blank' rel='noreferrer'>Meldt al je problemen en vragen hier.</a>
+        <b>Issues of problemen:</b> <a href='https://github.com/dem-it/medicore-tools/issues' target='_blank' rel='noreferrer'>Meld al je problemen en vragen hier.</a>
       </p>
       <hr />
       <Grid2 container spacing={2}>

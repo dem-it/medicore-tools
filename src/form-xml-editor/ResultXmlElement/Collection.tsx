@@ -1,10 +1,17 @@
+import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
 import Tabs from '@mui/material/Tabs';
 import { useState } from "react";
 import ResultXmlElement from ".";
-import { CollectionStyle, Construct } from "../Attributes/CollectionAttributes";
+import { CollectionStyle, Construct, ConstructBox, ConstructTable } from "../Attributes/CollectionAttributes";
 import { ResultXmlElementProps } from '../Interfaces';
+import HeaderLabel from './HeaderLabel';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,39 +57,89 @@ const Collection = (props: ResultXmlElementProps) => {
     if (!attributes.visible)
         return <></>
 
-    if (attributes.style === CollectionStyle.Tabs) {
+    if (attributes.style === CollectionStyle.Tabs)
         return <CollectionTabs {...props} />
+
+    if (attributes.style === CollectionStyle.Box)
+        return <CollectionBox {...props} />
+
+    if (attributes.style === CollectionStyle.Table)
+        return <CollectionTable {...props} />
+
+    console.log('Collection style not implemented:', attributes.style)
+
+    return <></>
+}
+
+const CollectionTable = (props: ResultXmlElementProps) => {
+
+    const attributes = ConstructTable(props.element.attributes)
+
+    //make a 2d array of the children with maximum the given columns per list
+    const arr2d = []
+    for (let i = 0; i < props.element.children!.length; i += attributes.columns) {
+        arr2d.push(props.element.children!.slice(i, i + attributes.columns))
     }
 
-    return <>Oh ja, ook iets mee doen</>
+    return <>
+        <HeaderLabel {...props} label='Table' />
+        <TableContainer>
+            <Table>
+                <TableBody>
+                    {arr2d.map((row, rowIndex) => (
+                        <TableRow key={`table-${props.element.path}-row-${rowIndex}`}>
+                            {row.map((cell, cellIndex) => (
+                                <TableCell key={`table-${props.element.path}-cell-${rowIndex}-${cellIndex}`}>
+                                    <ResultXmlElement {...props} element={cell} />
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    </>
+}
+
+const CollectionBox = (props: ResultXmlElementProps) => {
+
+    const attributes = ConstructBox(props.element.attributes)
+
+    return <>
+        <HeaderLabel {...props} label={attributes.label} />
+        <Paper elevation={3} sx={{ padding: '10px' }}>
+            {props.element?.children?.map((child, index) => <ResultXmlElement key={`collectionbox-child-${child.path}-${index}`} {...props} element={child} />)}
+        </Paper>
+    </>
 }
 
 const CollectionTabs = (props: ResultXmlElementProps) => {
-    
+
     const [value, setValue] = useState(0)
     const attributes = Construct(props.element.attributes)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue)
-        
-        const newPath = props.element.children![newValue] 
+
+        const newPath = props.element.children![newValue]
         props.setSelectedElementPath(newPath.path)
     }
 
     return <>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                {props.element.children?.map((child, index) => {
-                    const childAttributes = Construct(child.attributes)
-                    return <Tab key={`tab-${attributes.name}-${index}`} {...a11yProps(index)} label={childAttributes.name} />
-                })}
-            </Tabs>
-
+        <HeaderLabel {...props} label="Tabs" />
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             {props.element.children?.map((child, index) => {
-                return <CustomTabPanel key={`tabpanel-${attributes.name}-${index}`} value={value} index={index}>
-                    {child.children?.map((subChild, subIndex) => <ResultXmlElement key={`tabpanel-child-${subIndex}`} {...props} element={subChild} />)}
-                </CustomTabPanel>
+                const childAttributes = Construct(child.attributes)
+                return <Tab key={`tab-${child.path}-${attributes.name}-${index}`} {...a11yProps(index)} label={childAttributes.name} />
             })}
-        </>
+        </Tabs>
+
+        {props.element.children?.map((child, index) => {
+            return <CustomTabPanel key={`tabpanel-${child.path}-${attributes.name}-${index}`} value={value} index={index}>
+                {child.children?.map((subChild, subIndex) => <ResultXmlElement key={`tabpanel-child-${subChild.path}-${subIndex}`} {...props} element={subChild} />)}
+            </CustomTabPanel>
+        })}
+    </>
 }
 
 export default Collection

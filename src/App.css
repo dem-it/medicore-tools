@@ -60,6 +60,10 @@ body {
   margin-top: 10px;
 }
 
+.result-xml .hidden {
+  opacity: 0.3;
+}
+
 .result-xml .selectable:hover {
   border: 2px solid #d72020;
   cursor: pointer;

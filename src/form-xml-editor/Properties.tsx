@@ -1,6 +1,12 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
 import { useEffect, useState } from "react";
+import XMLViewer from 'react-xml-viewer';
 import FormElement from "../interfaces/FormElement";
+import ConstructXmlService from '../services/ConstructXmlService';
 import FormElementService from "../services/FormElementService";
 import { useFormData } from "./FormDataContext/FormDataProvider";
 import { FormProps } from "./Interfaces";
@@ -48,6 +54,8 @@ function Properties(props: FormProps) {
 
   const hasProperties = Object.keys(properties).length > 0
 
+  const xml = new ConstructXmlService().constructXml(selectedElement!, true)
+
   return (
     <>
       <Card sx={props.sx}>
@@ -72,6 +80,20 @@ function Properties(props: FormProps) {
                   />
                 ))}
             </Grid>
+
+
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                XML Viewer
+              </AccordionSummary>
+              <AccordionDetails>
+                <XMLViewer xml={xml} />
+              </AccordionDetails>
+            </Accordion>
           </Stack>
         </CardContent>
       </Card>
