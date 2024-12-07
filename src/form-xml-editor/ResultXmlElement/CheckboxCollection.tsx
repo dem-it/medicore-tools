@@ -28,9 +28,13 @@ const CheckboxCollection = (props: ResultXmlElementProps) => {
 function Checkbox(props: ResultXmlElementProps) {
 
     const label = props.element.attributes['label']
-    const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
+    const visible = props.element.attributes['visible'] === 'true'
+    const className = [
+        props.selectedElementPath === props.element.path ? 'selected' : 'selectable',
+        visible ? '' : 'hidden'
+    ]
 
-    return <div className={className}
+    return <div className={className.join(' ')}
         onClick={() => props.setSelectedElementPath(props.element.path)}>
         <FormControlLabel control={<MaterialCheckbox />} label={label} />
     </div>

@@ -18,24 +18,52 @@ function Properties(props: FormProps) {
 
   const [selectedElement, setSelectedElement] = useState<FormElement | undefined>(undefined)
   const [properties, setProperties] = useState<Record<string, string>>({})
+  const [xml, setXml] = useState('')
 
   useEffect(() => {
-    if (!selectedElementPath)
-    {
+    if (!selectedElementPath) {
       setSelectedElement(undefined)
-    } 
-    else
-    {
+    }
+    else {
       const service = new FormElementService(parsedXmlContent!)
       const element = service.getByPath(selectedElementPath)
       setSelectedElement(element)
     }
-    
+
     setProperties({})
-    
+
     // Only want to check if the selectedElementPath is Changed
     // eslint-disable-next-line
   }, [selectedElementPath])
+
+  useEffect(() => {
+    if (!selectedElement)
+      return
+
+    const newXml = new ConstructXmlService().constructXml(selectedElement!, true)
+    setXml(newXml)
+
+    // Only want to check if the properties are Changed
+    // eslint-disable-next-line
+  }, [selectedElement])
+
+  useEffect(() => {
+    if (!parsedXmlContent || !selectedElementPath)
+      return
+
+    // The properties seems to be updated, therefore rerender the xml by the parsedContent
+    const service = new FormElementService(parsedXmlContent!)
+    const element = service.getByPath(selectedElementPath!)
+
+    if (!element)
+      return
+
+    const newXml = new ConstructXmlService().constructXml(element!, true)
+    setXml(newXml)
+
+    // Only want to check if the properties are Changed
+    // eslint-disable-next-line
+  }, [parsedXmlContent])
 
   useEffect(() => {
     if (!selectedElementPath)
@@ -53,8 +81,6 @@ function Properties(props: FormProps) {
     return <></>
 
   const hasProperties = Object.keys(properties).length > 0
-
-  const xml = new ConstructXmlService().constructXml(selectedElement!, true)
 
   return (
     <>
