@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Construct } from "../Attributes/DropdownAttributes"
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
-import HeaderLabel from "./HeaderLabel"
+import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example:
 <dropdown name="dropdown" label="Dropdown veld" value="" mandatory="false" visible="true" exportable="true">
@@ -25,10 +25,7 @@ const Dropdown = (props: ResultXmlElementProps) => {
         props.setSelectedElementPath(selectedPath)
     }
 
-    if (!attributes.visible)
-        return <></>
-
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <FormControl fullWidth>
             <HeaderLabel {...props} label={attributes.label} />
             <Select
@@ -42,7 +39,7 @@ const Dropdown = (props: ResultXmlElementProps) => {
                 })}
             </Select>
         </FormControl>
-    </>
+    </div>
 }
 
 export default Dropdown

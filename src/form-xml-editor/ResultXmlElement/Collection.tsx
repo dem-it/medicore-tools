@@ -11,7 +11,7 @@ import { useState } from "react";
 import ResultXmlElement from ".";
 import { CollectionStyle, Construct, ConstructBox, ConstructTable } from "../Attributes/CollectionAttributes";
 import { ResultXmlElementProps } from '../Interfaces';
-import HeaderLabel from './HeaderLabel';
+import HeaderLabel from './HighOrderComponent/HeaderLabel';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -54,9 +54,6 @@ const Collection = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
 
-    if (!attributes.visible)
-        return <></>
-
     if (attributes.style === CollectionStyle.Tabs)
         return <CollectionTabs {...props} />
 
@@ -81,7 +78,7 @@ const CollectionTable = (props: ResultXmlElementProps) => {
         arr2d.push(props.element.children!.slice(i, i + attributes.columns))
     }
 
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <HeaderLabel {...props} label='Table' />
         <TableContainer>
             <Table>
@@ -98,19 +95,19 @@ const CollectionTable = (props: ResultXmlElementProps) => {
                 </TableBody>
             </Table>
         </TableContainer>
-    </>
+    </div>
 }
 
 const CollectionBox = (props: ResultXmlElementProps) => {
 
     const attributes = ConstructBox(props.element.attributes)
 
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <HeaderLabel {...props} label={attributes.label} />
         <Paper elevation={3} sx={{ padding: '10px' }}>
             {props.element?.children?.map((child, index) => <ResultXmlElement key={`collectionbox-child-${child.path}-${index}`} {...props} element={child} />)}
         </Paper>
-    </>
+    </div>
 }
 
 const CollectionTabs = (props: ResultXmlElementProps) => {
@@ -125,7 +122,7 @@ const CollectionTabs = (props: ResultXmlElementProps) => {
         props.setSelectedElementPath(newPath.path)
     }
 
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <HeaderLabel {...props} label="Tabs" />
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
             {props.element.children?.map((child, index) => {
@@ -139,7 +136,7 @@ const CollectionTabs = (props: ResultXmlElementProps) => {
                 {child.children?.map((subChild, subIndex) => <ResultXmlElement key={`tabpanel-child-${subChild.path}-${subIndex}`} {...props} element={subChild} />)}
             </CustomTabPanel>
         })}
-    </>
+    </div>
 }
 
 export default Collection

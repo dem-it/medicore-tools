@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { Construct } from "../Attributes/FileUploadAttributes";
 import { ResultXmlElementProps } from "../Interfaces";
-import HeaderLabel from "./HeaderLabel";
+import HeaderLabel from "./HighOrderComponent/HeaderLabel";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -27,10 +27,7 @@ const FileUpload = (props: FileUploadProps) => {
 
     const attributes = Construct(props.element.attributes)
 
-    if (!attributes.visible)
-        return <></>
-
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <HeaderLabel {...props} label={attributes.label} />
         <Button
             variant='contained'
@@ -41,7 +38,7 @@ const FileUpload = (props: FileUploadProps) => {
                 type='file'
                 onChange={e => console.log(e.target.files)} />
         </Button>
-    </>
+    </div>
 }
 
 export default FileUpload

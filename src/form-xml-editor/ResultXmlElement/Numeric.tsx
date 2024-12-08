@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material"
 import { Construct } from "../Attributes/NumericAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
-import HeaderLabel from "./HeaderLabel"
+import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
     <numeric name="VeldLengteA" label="Veld Lengte in meters" displayLabel="true" value="" mandatory="false" visible="true" format="" exportable="true"/>
@@ -15,7 +15,7 @@ const Numeric = (props: ResultXmlElementProps) => {
 
     return <div className={attributes.visible ? '' : 'hidden'}>
         <div className={attributes.displayLabel ? '' : 'hidden'}>
-        <HeaderLabel {...props} label={attributes.label} />
+            <HeaderLabel {...props} label={attributes.label} />
         </div>
         <TextField
             fullWidth

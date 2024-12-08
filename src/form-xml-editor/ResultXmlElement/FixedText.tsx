@@ -9,18 +9,17 @@ const FixedText = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
 
-    if (!attributes.visible)
-        return <></>
-
     const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
 
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <div className={className}
             onClick={() => props.setSelectedElementPath(props.element.path)}>
-            {attributes.displayLabel && <div><b>{attributes.label}</b></div>}
+            {attributes.label !== '' && <div className={attributes.displayLabel ? '' : 'hidden'}>
+                <b>{attributes.label}</b>
+            </div>}
             {attributes.value !== '' && <div>{attributes.value}</div>}
         </div>
-    </>
+    </div>
 }
 
 export default FixedText

@@ -1,4 +1,4 @@
-import { ResultXmlElementProps } from "../Interfaces"
+import { ResultXmlElementProps } from "../../Interfaces"
 
 interface HeaderLabelProps extends ResultXmlElementProps {
     label?: string,

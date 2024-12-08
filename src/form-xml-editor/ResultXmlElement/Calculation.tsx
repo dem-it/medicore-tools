@@ -1,6 +1,6 @@
 import { Construct } from "../Attributes/CalculationAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
-import HeaderLabel from "./HeaderLabel"
+import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
     <calculation name="resultaat BMI Standaard" label="BMI standaard" displayLabel="true" value="" visible="true" formula="{VeldGewichtA}/({VeldLengteA}*{VeldLengteA})" decimals="2" rounding="standard" exportable="true"/>
@@ -15,7 +15,7 @@ const Calculation = (props: ResultXmlElementProps) => {
 
     return <div className={attributes.visible ? '' : 'hidden'}>
         <div className={attributes.displayLabel ? '' : 'hidden'}>
-        <HeaderLabel {...props} label={attributes.label} />
+            <HeaderLabel {...props} label={attributes.label} />
         </div>
         <div>
             <span>Formula: {attributes.formula}</span>

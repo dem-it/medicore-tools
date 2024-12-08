@@ -6,6 +6,8 @@ import Date from './Date';
 import Dropdown from './Dropdown';
 import FileUpload from './FileUpload';
 import FixedText from './FixedText';
+import Inheritance from './Inheritance';
+import InterformValue from './InterformValue';
 import Numeric from './Numeric';
 import RadiobuttonCollection from './RadiobuttonCollection';
 import SearchSelect from './SearchSelect';
@@ -43,10 +45,14 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
     return <FileUpload {...props} name='Selecteer afbeelding' />
   if (element.name === 'numeric')
     return <Numeric {...props} />
-    if (element.name === 'calculation')
-      return <Calculation {...props} />
+  if (element.name === 'calculation')
+    return <Calculation {...props} />
+  if (element.name === 'interformvalue')
+    return <InterformValue {...props} />
+  if (element.name === 'inheritance')
+    return <Inheritance {...props} />
 
-  if(element.name === 'metadata')
+  if (element.name === 'metadata')
     return <></>
 
   const elementsToSkip = [
@@ -54,7 +60,7 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
   ]
 
   if (!elementsToSkip.includes(element.name))
-      console.log(`Element not implemented: '${element.name}'`)
+    console.log(`Element not implemented: '${element.name}'`)
 
   //do nothing just return te rest of the tree
   return <>

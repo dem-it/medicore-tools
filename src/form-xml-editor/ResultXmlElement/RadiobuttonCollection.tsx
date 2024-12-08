@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, Radio as MaterialRadio, RadioGroup } fro
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { Construct } from "../Attributes/RadiobuttonCollectionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
-import HeaderLabel from "./HeaderLabel"
+import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example:
 <radio name="rb_collection" label="Selecteer een optie" value="" mandatory="false" visible="true" exportable="true">
@@ -15,28 +15,26 @@ const RadiobuttonCollection = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
 
-    if (!attributes.visible)
-        return <></>
-
-    return <>
+    return <div className={attributes.visible ? '' : 'hidden'}>
         <FormControl fullWidth>
             <HeaderLabel {...props} label={attributes.label} />
             <RadioGroup name={`radio-buttons-group-${props.element.path}`}>
                 {props.element.children?.map((child, index) => <Radio key={`radio-${props.element.path}-${index}`} {...props} element={child} />)}
             </RadioGroup>
         </FormControl>
-    </>
+    </div>
 }
 
 function Radio(props: ResultXmlElementProps) {
 
     const attributes = ConstructOption(props.element.attributes)
-    const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
+    
+    const classNames = [
+        props.selectedElementPath === props.element.path ? 'selected' : 'selectable',
+        attributes.visible ? '' : 'hidden'
+    ]
 
-    if (!attributes.visible)
-        return <></>
-
-    return <div className={className}
+    return <div className={classNames.join(' ')}
         onClick={() => props.setSelectedElementPath(props.element.path)}>
         <FormControlLabel control={<MaterialRadio />} label={attributes.label} value={attributes.value} />
     </div>
