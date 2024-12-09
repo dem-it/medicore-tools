@@ -1,5 +1,6 @@
-export interface CalculationAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase";
+
+export interface CalculationAttributes extends AttributesBase {
     label: string;
     displayLabel: boolean;
     value: string;
@@ -21,5 +22,19 @@ export const Construct = (attributes : Record<string, string>): CalculationAttri
         formula: attributes['formula'],
         decimals: parseInt(attributes['decimals']),
         rounding: attributes['rounding']
+    }
+}
+
+export const ConstructDefaultCalculation = (): CalculationAttributes => {
+    return {
+        visible: true,
+        name: `calculation-${Date.now()}`,
+        label: 'calculation',
+        value: "",
+        displayLabel: true,
+        exportable: true,
+        formula: "{Veld1}x{veld2}",
+        decimals: 2,
+        rounding: "standard"
     }
 }

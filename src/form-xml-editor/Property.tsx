@@ -8,15 +8,13 @@ function Property(props: PropertyProps) {
 
     const { parsedXmlContent, setParsedXmlContent } = useFormData()
 
-    const [previousName, setPreviousName] = useState(props.name)
     const [previousValue, setPreviousValue] = useState(props.value)
 
-    const [name, setName] = useState(props.name)
     const [value, setValue] = useState(props.value)
     const [booleanValue, setBooleanValue] = useState<boolean>(props.value === 'true')
 
-    const booleanNames = ['mandatory', 'visible', 'exportable']
-    const isBoolean = booleanNames.includes(name)
+    const booleanNames = ['mandatory', 'visible', 'exportable', 'displayLabel']
+    const isBoolean = booleanNames.includes(props.name)
 
     useEffect(() => {
         if (!isBoolean)
@@ -27,38 +25,28 @@ function Property(props: PropertyProps) {
     }, [booleanValue])
 
     const fieldChanged = (newValue: string) => {
+        if(props.skipTriggerChange === true)
+            return
         if (!parsedXmlContent)
             return
-        if (name === previousName && newValue === previousValue)
+        if (newValue === previousValue)
             return //nothing changed
 
         const service = new FormElementService(parsedXmlContent!)
         const formElementToChange = service.getByPath(props.path)
 
-        if (previousName !== name) {
-            //the name is changed, remove te attribute
-            delete formElementToChange!.attributes[previousName]
-            setPreviousName(name)
-        }
-
         setPreviousValue(newValue)
         //the value is changed
-        formElementToChange!.attributes[name] = newValue
+        formElementToChange!.attributes[props.name] = newValue
 
         setParsedXmlContent(service.formElement)
     }
 
     return <>
-        <Grid item xs={4}>
-            <TextField
-                size='small'
-                label='Naam'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                onBlur={() => fieldChanged(value)}
-            />
+        <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
+            <b>{props.name}</b>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={8}>
             {isBoolean ?
                 <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
                     <span>false</span>

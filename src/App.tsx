@@ -32,7 +32,7 @@ function App() {
 function Index() {
   return (
     <>
-      <h1>Home</h1>
+      <h1>Medicore++</h1>
       <p>
         Welkom bij de Medicore Tools. We maken het gebruik van Medicore hiermee nog gemakkelijker!
       </p>

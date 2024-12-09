@@ -1,5 +1,6 @@
 import { Construct } from "../Attributes/FixedTextAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 
 /* Example
     <fixedtext name="tekstvb" label="Dit is drikgedukte tekst" displayLabel="true" value="" visible="true" exportable="true"/>
@@ -9,17 +10,19 @@ const FixedText = (props: ResultXmlElementProps) => {
 
     const attributes = Construct(props.element.attributes)
 
-    const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
+    const classNames = [
+        props.selectedElementPath === props.element.path ? 'selected' : 'selectable',
+        attributes.visible ? '' : 'hidden'
+    ]
 
-    return <div className={attributes.visible ? '' : 'hidden'}>
-        <div className={className}
+    return <>
+        <div className={classNames.join(' ')}
             onClick={() => props.setSelectedElementPath(props.element.path)}>
-            {attributes.label !== '' && <div className={attributes.displayLabel ? '' : 'hidden'}>
-                <b>{attributes.label}</b>
-            </div>}
+            {attributes.displayLabel && <b>{attributes.label.trim() === '' ? '-' : attributes.label}</b>}
             {attributes.value !== '' && <div>{attributes.value}</div>}
         </div>
-    </div>
+        <AddDivider path={props.element.path} />
+    </>
 }
 
 export default FixedText

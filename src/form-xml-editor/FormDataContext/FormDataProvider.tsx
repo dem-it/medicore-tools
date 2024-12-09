@@ -31,8 +31,8 @@ export const FormDataProvider = ({ children }: FormDataProviderProps) => {
   }, [parsedXmlContent])
 
   const deepClone = (obj: any) => {
-    return JSON.parse(JSON.stringify(obj));
-  };
+    return JSON.parse(JSON.stringify(obj))
+  }
 
   const value = {
     formData,

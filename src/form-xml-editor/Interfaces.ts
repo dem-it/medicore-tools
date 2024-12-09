@@ -28,4 +28,5 @@ export interface PropertyProps {
   path: string;
   name: string;
   value: string;
+  skipTriggerChange?: boolean;
 }
