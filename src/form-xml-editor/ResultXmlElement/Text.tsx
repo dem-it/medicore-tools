@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material"
 import { Construct } from "../Attributes/TextAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
@@ -17,6 +18,7 @@ const Text = (props: ResultXmlElementProps) => {
             variant='outlined'
             label={attributes.label}
             value={attributes.value} />
+        <AddDivider path={props.element.path} />
     </div>
 }
 

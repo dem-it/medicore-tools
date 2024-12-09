@@ -1,5 +1,6 @@
 import { Construct } from "../Attributes/CalculationAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
@@ -20,6 +21,7 @@ const Calculation = (props: ResultXmlElementProps) => {
         <div>
             <span>Formula: {attributes.formula}</span>
         </div>
+        <AddDivider path={props.element.path} />
     </div>
 }
 

@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { Construct } from "../Attributes/FileUploadAttributes";
 import { ResultXmlElementProps } from "../Interfaces";
+import AddDivider from "./HighOrderComponent/AddDivider";
 import HeaderLabel from "./HighOrderComponent/HeaderLabel";
 
 const VisuallyHiddenInput = styled('input')({
@@ -38,6 +39,7 @@ const FileUpload = (props: FileUploadProps) => {
                 type='file'
                 onChange={e => console.log(e.target.files)} />
         </Button>
+        <AddDivider path={props.element.path} />
     </div>
 }
 

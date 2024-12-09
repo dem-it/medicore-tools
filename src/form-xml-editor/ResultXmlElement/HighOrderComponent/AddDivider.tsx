@@ -1,4 +1,4 @@
-import { Autocomplete, Button, Chip, Divider, Skeleton, Stack, TextField } from "@mui/material";
+import { Autocomplete, Button, Chip, Divider, Stack, TextField } from "@mui/material";
 import Popover from '@mui/material/Popover';
 import * as React from 'react';
 import { useState } from 'react';
@@ -8,9 +8,19 @@ import FormElementService from "../../../services/FormElementService";
 import ParseXmlElementService from "../../../services/ParseXmlElementService";
 import { ConstructDefaultCalculation } from "../../Attributes/CalculationAttributes";
 import { ConstructDefaultCheckboxCollection } from "../../Attributes/CheckboxCollectionAttributes";
+import { ConstructDefaultBox, ConstructDefaultTab, ConstructDefaultTable, ConstructDefaultTabs } from "../../Attributes/CollectionAttributes";
+import { ConstructDefaultDate, ConstructDefaultDateTime } from "../../Attributes/DateAttributes";
+import { ConstructDefaultDropdown } from "../../Attributes/DropdownAttributes";
+import { ConstructDefaultFileUpload, ConstructDefaultImageUpload } from "../../Attributes/FileUploadAttributes";
 import { ConstructDefaultFixedText, ConstructDefaultFixedTextFat } from "../../Attributes/FixedTextAttributes";
+import { ConstructDefaultInheritance } from "../../Attributes/InheritanceAttributes";
+import { ConstructDefaultInterformValue } from "../../Attributes/InterformValueAttributes";
+import { ConstructDefaultNumeric } from "../../Attributes/NumericAttributes";
+import { ConstructDefaultRadiobuttonCollection } from "../../Attributes/RadiobuttonCollectionAttributes";
+import { ConstructDefaultSearchSelect } from "../../Attributes/SearchSelectAttributes";
+import { ConstructDefaultText } from "../../Attributes/TextAttributes";
+import { ConstructDefaultTextMultiline } from "../../Attributes/TextMultilineAttributes";
 import { useFormData } from "../../FormDataContext/FormDataProvider";
-import Property from "../../Property";
 
 interface AddDividerProps {
     path: string
@@ -35,8 +45,41 @@ const GetDefaultProperties = (element: string): Record<string, string> => {
             return ConvertToRecord(ConstructDefaultFixedTextFat())
         case "calculation":
             return ConvertToRecord(ConstructDefaultCalculation())
-        case "checkboxes":
+        case "checkboxcollection":
             return ConvertToRecord(ConstructDefaultCheckboxCollection())
+        case "collection-table":
+            return ConvertToRecord(ConstructDefaultTable())
+        case "collection-box":
+            return ConvertToRecord(ConstructDefaultBox())
+        case "collection-tabs":
+            return ConvertToRecord(ConstructDefaultTabs())
+        case "date":
+            return ConvertToRecord(ConstructDefaultDate())
+        case "date-time":
+            return ConvertToRecord(ConstructDefaultDateTime())
+        case "dropdown":
+            return ConvertToRecord(ConstructDefaultDropdown())
+        case "radio":
+            return ConvertToRecord(ConstructDefaultRadiobuttonCollection())
+        case "searchselect":
+            return ConvertToRecord(ConstructDefaultSearchSelect())
+        case "fileupload":
+            return ConvertToRecord(ConstructDefaultFileUpload())
+        case "imageupload":
+            return ConvertToRecord(ConstructDefaultImageUpload())
+        case "inheritance":
+            return ConvertToRecord(ConstructDefaultInheritance())
+        case "interformvalue":
+            return ConvertToRecord(ConstructDefaultInterformValue())
+        case "numeric":
+            return ConvertToRecord(ConstructDefaultNumeric())
+        case "text":
+            return ConvertToRecord(ConstructDefaultText())
+        case "textarea":
+            return ConvertToRecord(ConstructDefaultTextMultiline())
+        case "tab":
+            return ConvertToRecord(ConstructDefaultTab())
+
         default:
             return {}
     }
@@ -79,49 +122,53 @@ const AddDivider = (props: AddDividerProps) => {
             path: `${props.path}/0`,
             attributes: properties
         }
+
+        if (newElement === "collection-tabs") {
+            const childElement: FormElement = {
+                index: currentElement.index + 2,
+                name: `${newElement!.split('-')[0]}`,
+                path: `${props.path}/0`,
+                attributes: GetDefaultProperties("tab")
+            }
+            formElement.children = [
+                childElement
+            ]
+        }
+
         service.addAfterPath(props.path, formElement)
-        
+
         //parse the xml content to fix the paths
         const xml = constructService.constructXml(service.formElement)
         const parsedContent = new ParseXmlElementService(xml).parseXML()
 
         setParsedXmlContent(parsedContent)
 
-        //handleClose()
+        handleClose()
     }
 
     const options = [
+
         { value: "fixedtext", label: "Tekst" },
         { value: "fixedtext-fat", label: "Tekst dikgedrukt" },
-        // { value: "searchselect", label: "Zoek selectie" },
-        // { value: "dropdown", label: "Dropdown" },
-        // { value: "radio", label: "Radio" },
-        { value: "checkboxes", label: "Checkboxes" },
-        // { value: "date", label: "Datum" },
-        // { value: "time", label: "Tijd" },
-        // { value: "datetime", label: "Datum en tijd" },
-        // { value: "number", label: "Nummer" },
-        // { value: "email", label: "Email" },
-        // { value: "phone", label: "Telefoon" },
-        // { value: "url", label: "URL" },
-        // { value: "textarea", label: "Tekstveld" },
-        // { value: "file", label: "Bestand" },
-        // { value: "button", label: "Knop" },
-        // { value: "label", label: "Label" },
+        { value: "searchselect", label: "Selecteer met zoekfunctie" },
+        { value: "dropdown", label: "Dropdown" },
+        { value: "radio", label: "Radiobuttons" },
+        { value: "checkboxcollection", label: "Checkboxes" },
+        { value: "date", label: "Datum" },
+        { value: "date-time", label: "Datum en tijd" },
+        { value: "fileupload", label: "Bestand uploaden" },
+        { value: "imageupload", label: "Afbeelding uploaden" },
+        { value: "numeric", label: "Nummer (rekenveld)" },
+        { value: "text", label: "Tekstveld" },
+        { value: "textarea", label: "Tekstveld (meerdere regels)" },
         { value: "calculation", label: "Berekening" },
-        // { value: "inheritance", label: "Overerving" },
-        // { value: "interformvalue", label: "Interformwaarde" },
-        // { value: "collection", label: "Collectie (tabel/box/tabs)" }
+        { value: "inheritance", label: "Overerving" },
+        { value: "interformvalue", label: "Overerving - interformwaarde" },
+        { value: "collection-table", label: "Tabel" },
+        { value: "collection-box", label: "Box" },
+        { value: "collection-tabs", label: "Tabbladen" },
     ]
-    const sortedOptions = options.sort((a, b) => {
-        if (a.value < b.value) {
-          return -1
-        }
-        if (a.value > b.value) {
-          return 1
-        }
-        return 0
-      })
+    const sortedOptions = options.sort((a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0)
 
     return <>
         <Divider sx={{
@@ -155,7 +202,8 @@ const AddDivider = (props: AddDividerProps) => {
             >
                 <div style={{
                     padding: '10px',
-                    minHeight: '400px',
+                    width: '300px',
+                    minHeight: '500px',
                 }}>
                     <h3>Voeg een element toe</h3>
                     <Stack spacing={2} direction='column'>
@@ -166,26 +214,11 @@ const AddDivider = (props: AddDividerProps) => {
                             onChange={(_, value) => value && optionSelected(value.value)}
                             renderInput={(params) => <TextField {...params} label="Selecteer" />} />
 
-                        {newElement ? <>
+                        {newElement && <>
                             <h4>Element: {newElement.split('-')[0]}</h4>
-                            {Object.entries(properties)
-                                .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-                                .map(([key, value]) => (
-                                    <Property
-                                        key={`new-property-${props.path}-${newElement}-${key}`}
-                                        path='niet-van-toepassing'
-                                        name={key}
-                                        value={value}
-                                        skipTriggerChange={true}
-                                    />
-                                ))}
                             <Button variant="contained" onClick={addElement}>
                                 Voeg toe
                             </Button>
-                        </> : <>
-                            {Array.from({ length: 4 }).map((_, index) => (
-                                <Skeleton variant="rounded" width={200} height={40} />
-                            ))}
                         </>}
                     </Stack>
                 </div>

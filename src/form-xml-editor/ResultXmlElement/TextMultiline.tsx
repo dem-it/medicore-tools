@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material"
 import { Construct } from "../Attributes/TextMultilineAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
@@ -19,6 +20,7 @@ const TextMultiline = (props: ResultXmlElementProps) => {
             multiline
             rows={attributes.rows}
             value={attributes.value} />
+        <AddDivider path={props.element.path} />
     </div>  
 }
 

@@ -2,6 +2,7 @@ import { Autocomplete, TextField } from "@mui/material"
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { Construct } from "../Attributes/SearchSelectAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example:
@@ -32,6 +33,7 @@ const SearchSelect = (props: ResultXmlElementProps) => {
             sx={{ width: 300 }}
             onChange={(_, value) => value && props.setSelectedElementPath(value.value)}
             renderInput={(params) => <TextField {...params} label="Selecteer" />} />
+        <AddDivider path={props.element.path} />
     </div>
 }
 

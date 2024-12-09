@@ -17,3 +17,26 @@ export const Construct = (attributes : Record<string, string>): FileUploadAttrib
         mandatory: attributes['mandatory'] === "true"
     }
 }
+
+export const ConstructDefaultFileUpload = (): FileUploadAttributes => {
+    return {
+        visible: true,
+        name: `fileupload-${Date.now()}`,
+        label: "Upload een bestand",
+        value: "",
+        mandatory: false,
+        exportable: true
+    }
+}
+
+
+export const ConstructDefaultImageUpload = (): FileUploadAttributes => {
+    return {
+        visible: true,
+        name: `imageupload-${Date.now()}`,
+        label: "Upload een plaatje",
+        value: "",
+        mandatory: false,
+        exportable: true
+    }
+}

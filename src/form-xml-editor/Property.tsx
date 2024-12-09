@@ -13,7 +13,13 @@ function Property(props: PropertyProps) {
     const [value, setValue] = useState(props.value)
     const [booleanValue, setBooleanValue] = useState<boolean>(props.value === 'true')
 
-    const booleanNames = ['mandatory', 'visible', 'exportable', 'displayLabel']
+    const booleanNames = [
+        'mandatory',
+        'visible',
+        'exportable',
+        'displayLabel',
+        'buttonactive'
+    ]
     const isBoolean = booleanNames.includes(props.name)
 
     useEffect(() => {
@@ -25,7 +31,7 @@ function Property(props: PropertyProps) {
     }, [booleanValue])
 
     const fieldChanged = (newValue: string) => {
-        if(props.skipTriggerChange === true)
+        if (props.skipTriggerChange === true)
             return
         if (!parsedXmlContent)
             return

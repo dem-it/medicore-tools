@@ -19,3 +19,15 @@ export const Construct = (attributes : Record<string, string>): TextAttributes =
         mandatory: attributes['mandatory'] === "true"
     }
 }
+
+export const ConstructDefaultText = (): TextAttributes => {
+    return {
+        visible: true,
+        name: `text-${Date.now()}`,
+        label: "Tekstvak",
+        value: "",
+        displayLabel: true,
+        exportable: true,
+        mandatory: false
+    }
+}

@@ -21,3 +21,16 @@ export const Construct = (attributes : Record<string, string>): NumericAttribute
         format: attributes['format']
     }
 }
+
+export const ConstructDefaultNumeric = (): NumericAttributes => {
+    return {
+        visible: true,
+        name: `numeric-${Date.now()}`,
+        displayLabel: true,
+        label: "Nummer waarde",
+        value: undefined,
+        exportable: true,
+        mandatory: false,
+        format: ""
+    }
+}

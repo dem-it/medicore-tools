@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material"
 import { Construct } from "../Attributes/NumericAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
@@ -23,6 +24,7 @@ const Numeric = (props: ResultXmlElementProps) => {
             value={attributes.value}
             size="small"
             type='number' />
+        <AddDivider path={props.element.path} />
     </div>
 }
 

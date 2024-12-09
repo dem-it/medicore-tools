@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Construct } from "../Attributes/DropdownAttributes"
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example:
@@ -39,6 +40,7 @@ const Dropdown = (props: ResultXmlElementProps) => {
                 })}
             </Select>
         </FormControl>
+        <AddDivider path={props.element.path} />
     </div>
 }
 

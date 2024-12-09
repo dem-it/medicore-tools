@@ -21,3 +21,16 @@ export const Construct = (attributes : Record<string, string>): TextMultilineAtt
         rows: parseInt(attributes['rows'])
     }
 }
+
+export const ConstructDefaultTextMultiline = (): TextMultilineAttributes => {
+    return {
+        visible: true,
+        name: `textmultiline-${Date.now()}`,
+        label: "Tekstvak meerdere regels",
+        value: "",
+        displayLabel: true,
+        exportable: true,
+        mandatory: false,
+        rows: 3
+    }
+}

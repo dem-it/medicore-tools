@@ -21,3 +21,16 @@ export const Construct = (attributes : Record<string, string>): InheritanceAttri
         exportable: attributes['exportable'] === "true"
     }
 }
+
+export const ConstructDefaultInheritance = (): InheritanceAttributes => {
+    return {
+        visible: true,
+        name: `inheritance-${Date.now()}`,
+        label: "Overerving",
+        value: "",
+        displayLabel: true,
+        templateFormUuid: "999999",
+        fieldUuid: "999999",
+        exportable: true
+    }
+}

@@ -29,7 +29,7 @@ export const ConstructDefaultCalculation = (): CalculationAttributes => {
     return {
         visible: true,
         name: `calculation-${Date.now()}`,
-        label: 'calculation',
+        label: 'Berekening',
         value: "",
         displayLabel: true,
         exportable: true,

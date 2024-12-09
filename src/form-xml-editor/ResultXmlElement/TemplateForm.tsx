@@ -1,6 +1,7 @@
 import ResultXmlElement from "."
 import { Construct } from "../Attributes/TemplateFormAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 
 /* Example:
 	<templateform name="_EMR Formulier functies" employeeId="57" active="true" lockTime="123456789" category="5" emrType="68" isQuestionnaireEnabled="false" exportable="true" isPartOfCareplan="false">
@@ -19,6 +20,8 @@ const TemplateForm = (props: ResultXmlElementProps ) => {
         </div>
         
         {props.element.children?.map((child, index) => <ResultXmlElement key={`templateform-child-${index}`} {...props} element={child}  />)}
+
+        <AddDivider path={props.element.path} />
     </>
 }
 

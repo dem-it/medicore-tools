@@ -21,3 +21,16 @@ export const Construct = (attributes : Record<string, string>): InterformValueAt
         exportable: attributes['exportable'] === "true"
     }
 }
+
+export const ConstructDefaultInterformValue = (): InterformValueAttributes => {
+    return {
+        visible: true,
+        name: `interformvalue-${Date.now()}`,
+        label: "Overerving - interform value",
+        value: "",
+        displayLabel: true,
+        templateFormUuid: "999999",
+        fieldUuid: "999999",
+        exportable: true
+    }
+}

@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel, Radio as MaterialRadio, RadioGroup } fro
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { Construct } from "../Attributes/RadiobuttonCollectionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example:
@@ -22,6 +23,7 @@ const RadiobuttonCollection = (props: ResultXmlElementProps) => {
                 {props.element.children?.map((child, index) => <Radio key={`radio-${props.element.path}-${index}`} {...props} element={child} />)}
             </RadioGroup>
         </FormControl>
+        <AddDivider path={props.element.path} />
     </div>
 }
 

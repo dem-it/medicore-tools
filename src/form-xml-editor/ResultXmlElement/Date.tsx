@@ -1,6 +1,7 @@
 import { Stack } from "@mui/material"
 import { Construct } from "../Attributes/DateAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
 import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 /* Example
@@ -21,6 +22,7 @@ const Date = (props: ResultXmlElementProps) => {
             {formatIsDateTime && <input type="datetime-local" value={attributes.value} style={{ width: '100%' }} />}
             {attributes.buttonactive && <button style={{ width: '100%' }}>{attributes.buttonlabel}</button>}
         </Stack>
+        <AddDivider path={props.element.path} />
     </div>
 }
 
