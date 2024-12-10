@@ -6,83 +6,11 @@ import FormElement from "../../../interfaces/FormElement";
 import ConstructXmlService from "../../../services/ConstructXmlService";
 import FormElementService from "../../../services/FormElementService";
 import ParseXmlElementService from "../../../services/ParseXmlElementService";
-import { ConstructDefaultCalculation } from "../../Attributes/CalculationAttributes";
-import { ConstructDefaultCheckboxCollection } from "../../Attributes/CheckboxCollectionAttributes";
-import { ConstructDefaultBox, ConstructDefaultTab, ConstructDefaultTable, ConstructDefaultTabs } from "../../Attributes/CollectionAttributes";
-import { ConstructDefaultDate, ConstructDefaultDateTime } from "../../Attributes/DateAttributes";
-import { ConstructDefaultDropdown } from "../../Attributes/DropdownAttributes";
-import { ConstructDefaultFileUpload, ConstructDefaultImageUpload } from "../../Attributes/FileUploadAttributes";
-import { ConstructDefaultFixedText, ConstructDefaultFixedTextFat } from "../../Attributes/FixedTextAttributes";
-import { ConstructDefaultInheritance } from "../../Attributes/InheritanceAttributes";
-import { ConstructDefaultInterformValue } from "../../Attributes/InterformValueAttributes";
-import { ConstructDefaultNumeric } from "../../Attributes/NumericAttributes";
-import { ConstructDefaultRadiobuttonCollection } from "../../Attributes/RadiobuttonCollectionAttributes";
-import { ConstructDefaultSearchSelect } from "../../Attributes/SearchSelectAttributes";
-import { ConstructDefaultText } from "../../Attributes/TextAttributes";
-import { ConstructDefaultTextMultiline } from "../../Attributes/TextMultilineAttributes";
+import { GetDefaultProperties } from "../../Attributes/PropertiesHelper";
 import { useFormData } from "../../FormDataContext/FormDataProvider";
 
 interface AddDividerProps {
     path: string
-}
-
-const ConvertToRecord = (object: any): Record<string, string> => {
-    const properties: Record<string, string> = {};
-    for (const key in object) {
-        if (object.hasOwnProperty(key)) {
-            properties[key] = String(object[key]);
-        }
-    }
-    console.log("Properties", properties)
-    return properties;
-}
-
-const GetDefaultProperties = (element: string): Record<string, string> => {
-    switch (element) {
-        case "fixedtext":
-            return ConvertToRecord(ConstructDefaultFixedText())
-        case "fixedtext-fat":
-            return ConvertToRecord(ConstructDefaultFixedTextFat())
-        case "calculation":
-            return ConvertToRecord(ConstructDefaultCalculation())
-        case "checkboxcollection":
-            return ConvertToRecord(ConstructDefaultCheckboxCollection())
-        case "collection-table":
-            return ConvertToRecord(ConstructDefaultTable())
-        case "collection-box":
-            return ConvertToRecord(ConstructDefaultBox())
-        case "collection-tabs":
-            return ConvertToRecord(ConstructDefaultTabs())
-        case "date":
-            return ConvertToRecord(ConstructDefaultDate())
-        case "date-time":
-            return ConvertToRecord(ConstructDefaultDateTime())
-        case "dropdown":
-            return ConvertToRecord(ConstructDefaultDropdown())
-        case "radio":
-            return ConvertToRecord(ConstructDefaultRadiobuttonCollection())
-        case "searchselect":
-            return ConvertToRecord(ConstructDefaultSearchSelect())
-        case "fileupload":
-            return ConvertToRecord(ConstructDefaultFileUpload())
-        case "imageupload":
-            return ConvertToRecord(ConstructDefaultImageUpload())
-        case "inheritance":
-            return ConvertToRecord(ConstructDefaultInheritance())
-        case "interformvalue":
-            return ConvertToRecord(ConstructDefaultInterformValue())
-        case "numeric":
-            return ConvertToRecord(ConstructDefaultNumeric())
-        case "text":
-            return ConvertToRecord(ConstructDefaultText())
-        case "textarea":
-            return ConvertToRecord(ConstructDefaultTextMultiline())
-        case "tab":
-            return ConvertToRecord(ConstructDefaultTab())
-
-        default:
-            return {}
-    }
 }
 
 const AddDivider = (props: AddDividerProps) => {
@@ -116,19 +44,35 @@ const AddDivider = (props: AddDividerProps) => {
         const service = new FormElementService(parsedXmlContent!)
         const currentElement = service.getByPath(props.path)!
 
+        const newElementName = newElement!.split('-')[0]
+
         const formElement: FormElement = {
             index: currentElement.index + 1,
-            name: `${newElement!.split('-')[0]}`,
+            name: newElementName,
             path: `${props.path}/0`,
             attributes: properties
         }
+        console.log("new element")
 
         if (newElement === "collection-tabs") {
             const childElement: FormElement = {
                 index: currentElement.index + 2,
-                name: `${newElement!.split('-')[0]}`,
+                name: `tab`,
                 path: `${props.path}/0`,
                 attributes: GetDefaultProperties("tab")
+            }
+            formElement.children = [
+                childElement
+            ]
+        }
+
+        if(newElement === "collection-box"
+            || newElement === "collection-table") {
+            const childElement: FormElement = {
+                index: currentElement.index + 2,
+                name: `fixedtext`,
+                path: `${props.path}/0`,
+                attributes: GetDefaultProperties("fixedtext")
             }
             formElement.children = [
                 childElement
@@ -140,7 +84,6 @@ const AddDivider = (props: AddDividerProps) => {
         //parse the xml content to fix the paths
         const xml = constructService.constructXml(service.formElement)
         const parsedContent = new ParseXmlElementService(xml).parseXML()
-
         setParsedXmlContent(parsedContent)
 
         handleClose()

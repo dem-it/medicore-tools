@@ -1,5 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Card, CardContent, CardHeader, TextField } from "@mui/material";
+import { Card, CardContent, CardHeader } from "@mui/material";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -49,7 +49,7 @@ function Xml(props: FormProps) {
             </AccordionDetails>
           </Accordion>
 
-          <Accordion>
+          {/* <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel2-content"
@@ -69,7 +69,7 @@ function Xml(props: FormProps) {
                 rows={10}
               />
             </AccordionDetails>
-          </Accordion>
+          </Accordion> */}
 
           <Accordion>
             <AccordionSummary

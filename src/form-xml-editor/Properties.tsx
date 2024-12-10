@@ -1,5 +1,7 @@
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
+import { Button, Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -8,17 +10,111 @@ import XMLViewer from 'react-xml-viewer';
 import FormElement from "../interfaces/FormElement";
 import ConstructXmlService from '../services/ConstructXmlService';
 import FormElementService from "../services/FormElementService";
+import ParseXmlElementService from '../services/ParseXmlElementService';
+import { GetDefaultProperties } from './Attributes/PropertiesHelper';
 import { useFormData } from "./FormDataContext/FormDataProvider";
 import { FormProps } from "./Interfaces";
 import Property from "./Property";
 
 function Properties(props: FormProps) {
 
-  const { selectedElementPath, parsedXmlContent } = useFormData()
+  const { selectedElementPath, setSelectedElementPath, parsedXmlContent, setParsedXmlContent } = useFormData()
 
   const [selectedElement, setSelectedElement] = useState<FormElement | undefined>(undefined)
   const [properties, setProperties] = useState<Record<string, string>>({})
   const [xml, setXml] = useState('')
+
+  const supportedAddElements = [
+    { name: 'checkboxcollection', label: 'Voeg optie toe' },
+    { name: 'radio', label: 'Voeg optie toe' },
+    { name: 'searchselect', label: 'Voeg optie toe' },
+    { name: 'dropdown', label: 'Voeg optie toe' },
+    { name: 'collection-tabs', label: 'Voeg tab toe' }
+  ]
+
+  const getSupportedAddElement = (): { name: string, label: string } | undefined => {
+
+    const supportedAddElement = supportedAddElements.find(x => x.name.split('-')[0] === selectedElement!.name)
+
+    if (supportedAddElement === undefined)
+      return undefined
+
+    //check if the elements is collection-tabs and the style is tabs
+    if (supportedAddElement.name === 'collection-tabs' && selectedElement!.attributes.style !== 'tabs')
+      return undefined
+
+    return supportedAddElement
+  }
+
+  const addChildElement = () => {
+    const constructService = new ConstructXmlService()
+    const service = new FormElementService(parsedXmlContent!)
+    const currentElement = service.getByPath(selectedElement!.path)!
+
+    const childElement = getNewChildElement()
+
+    if (childElement === undefined)
+      return
+
+    if (currentElement.children === undefined)
+      currentElement.children = []
+    currentElement.children.push(childElement)
+
+    //parse the xml content to fix the paths
+    const xml = constructService.constructXml(service.formElement)
+    const parsedContent = new ParseXmlElementService(xml).parseXML()
+    setParsedXmlContent(parsedContent)
+  }
+
+  const getNewChildElement = (): FormElement | undefined => {
+    const childElement: FormElement = {
+      index: selectedElement!.index + 1,
+      path: `${selectedElement!.path}/0`,
+      name: ``,
+      attributes: {}
+    }
+
+    const supportedAddElement = getSupportedAddElement()!
+
+    switch (supportedAddElement.name) {
+      case 'checkboxcollection':
+        childElement.name = 'checkbox'
+        childElement.attributes = GetDefaultProperties('checkbox')
+        break
+
+      case 'radio':
+      case 'searchselect':
+      case 'dropdown':
+        childElement.name = 'option'
+        childElement.attributes = GetDefaultProperties('option')
+        break
+
+      case 'collection-tabs':
+        childElement.name = 'collection'
+        childElement.attributes = GetDefaultProperties('tab')
+        break
+
+      default:
+        return undefined
+    }
+
+    return childElement
+  }
+
+  const deleteElement = () => {
+    if (!parsedXmlContent || !selectedElementPath)
+      return
+
+    const constructService = new ConstructXmlService()
+    const service = new FormElementService(parsedXmlContent)
+    service.deleteElement(selectedElementPath)
+
+    //parse the xml content to fix the paths
+    const xml = constructService.constructXml(service.formElement)
+    const parsedContent = new ParseXmlElementService(xml).parseXML()
+    setParsedXmlContent(parsedContent)
+    setSelectedElementPath(undefined)
+  }
 
   useEffect(() => {
     if (!selectedElementPath) {
@@ -88,8 +184,28 @@ function Properties(props: FormProps) {
         <CardHeader title="Properties" />
         <CardContent>
           <Stack spacing={2} direction='column'>
+            <Stack
+              direction='row'
+              spacing={2}
+              justifyContent='space-between'
+            >
+              <h3>Eigenschappen</h3>
+              <div>
 
-            <h3>Eigenschappen</h3>
+                {getSupportedAddElement() !== undefined && (
+                  <Button
+                    onClick={addChildElement}
+                  >
+                    <AddIcon />
+                    {getSupportedAddElement()!.label}
+                  </Button>
+                )}
+                <Button onClick={deleteElement}>
+                  <DeleteIcon />
+                  Verwijder
+                </Button>
+              </div>
+            </Stack>
             <span>Geselecteerd element: <b>{selectedElement.name}</b></span>
 
             {!hasProperties && <p>Geen eigenschappen gevonden om aan te passen.</p>}
@@ -100,6 +216,7 @@ function Properties(props: FormProps) {
                 .map(([key, value]) => (
                   <Property
                     key={`${selectedElementPath}-${key}`}
+                    parentElement={selectedElement}
                     path={selectedElementPath!}
                     name={key}
                     value={value}

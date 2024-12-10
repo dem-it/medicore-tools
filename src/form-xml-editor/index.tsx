@@ -45,13 +45,13 @@ function FormXmlEditorWithContext() {
             marginBottom: '40px'
           }}
         >
-          <Grid item lg={6}>
+          <Grid item lg={5}>
             <Stack spacing={2} direction='column' sx={{ position: 'sticky', top: 0 }}>
               <Properties {...formProps} />
               <Xml {...formProps} />
             </Stack>
           </Grid>
-          <Grid item lg={6}>
+          <Grid item lg={7}>
             <Result sx={{ height: '100%' }} />
           </Grid>
         </Grid>

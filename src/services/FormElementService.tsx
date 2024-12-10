@@ -12,8 +12,23 @@ class FormElementService
         return this.getByPathRecursive(this.formElement, path)
     }
 
+    deleteElement(path: string) {
+        //parent path is the path without the last part
+        const parentPath = path.substring(0, path.lastIndexOf('.'))
+
+        const parentElement = this.getByPath(parentPath)
+        if (!parentElement || !parentElement.children)
+            throw new Error(`Parent element for path ${path} not found`)
+
+        const siblingIndex = parentElement.children.findIndex(child => child.path === path);
+
+        if (siblingIndex === -1)
+            throw new Error(`Sibling element with path ${path} not found`)
+
+        parentElement.children.splice(siblingIndex, 1)
+    }
+
     addAfterPath(path: string, element: FormElement) {
-        console.log(path)
         //parent path is the path without the last part
         const parentPath = path.substring(0, path.lastIndexOf('.'))
         

@@ -10,7 +10,7 @@ interface FormDataContextType {
     setParsedXmlContent: (content: FormElement) => void;
 
     selectedElementPath: string | undefined;
-    setSelectedElementPath: (path: string) => void;
+    setSelectedElementPath: (path: string | undefined) => void;
   }
 
   export default FormDataContextType

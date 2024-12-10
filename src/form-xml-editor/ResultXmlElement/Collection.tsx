@@ -81,14 +81,16 @@ const CollectionTable = (props: ResultXmlElementProps) => {
 
     return <>
         <div className={attributes.visible ? '' : 'hidden'}>
-            <HeaderLabel {...props} label='Table' />
+            <HeaderLabel {...props} label='Tabel' />
             <TableContainer>
                 <Table>
                     <TableBody>
                         {arr2d.map((row, rowIndex) => (
                             <TableRow key={`table-${props.element.path}-row-${rowIndex}`}>
                                 {row.map((cell, cellIndex) => (
-                                    <TableCell key={`table-${props.element.path}-cell-${rowIndex}-${cellIndex}`}>
+                                    <TableCell 
+                                        key={`table-${props.element.path}-cell-${rowIndex}-${cellIndex}`}
+                                        sx={{ border: '1px dashed rgba(100, 100, 100, 1)' }}>
                                         <ResultXmlElement {...props} element={cell} />
                                     </TableCell>
                                 ))}

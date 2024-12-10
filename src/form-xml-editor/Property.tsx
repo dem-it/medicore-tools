@@ -18,7 +18,8 @@ function Property(props: PropertyProps) {
         'visible',
         'exportable',
         'displayLabel',
-        'buttonactive'
+        'buttonactive',
+        'active'
     ]
     const isBoolean = booleanNames.includes(props.name)
 
@@ -48,6 +49,8 @@ function Property(props: PropertyProps) {
         setParsedXmlContent(service.formElement)
     }
 
+    const isTextArea = props.parentElement.name === 'textarea' && props.name === 'value'
+
     return <>
         <Grid item xs={3} sx={{ display: 'flex', alignItems: 'center' }}>
             <b>{props.name}</b>
@@ -64,6 +67,8 @@ function Property(props: PropertyProps) {
                 :
                 <TextField
                     fullWidth
+                    multiline={isTextArea}
+                    rows={isTextArea ? 8 : undefined}
                     size='small'
                     label='Waarde'
                     value={value}

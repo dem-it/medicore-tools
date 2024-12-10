@@ -25,6 +25,7 @@ export interface ResultXmlElementProps {
 }
   
 export interface PropertyProps {
+  parentElement: FormElement;
   path: string;
   name: string;
   value: string;

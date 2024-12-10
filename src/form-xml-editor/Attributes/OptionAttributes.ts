@@ -15,3 +15,13 @@ export const Construct = (attributes : Record<string, string>): OptionAttributes
         value: attributes['value'],
     }
 }
+
+export const ConstructDefaultOption = (): OptionAttributes => {
+    return {
+        visible: true,
+        name: `option-${Date.now()}`,
+        active: true,
+        label: "Optie",
+        value: "0",
+    }
+}
