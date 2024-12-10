@@ -55,11 +55,21 @@ const AddDivider = (props: AddDividerProps) => {
         console.log("new element")
 
         if (newElement === "collection-tabs") {
+            const subChildElement: FormElement = {
+                index: currentElement.index + 2,
+                name: `fixedtext`,
+                path: `${props.path}/0`,
+                attributes: GetDefaultProperties("fixedtext")
+            }
+
             const childElement: FormElement = {
                 index: currentElement.index + 2,
-                name: `tab`,
+                name: `collection`,
                 path: `${props.path}/0`,
-                attributes: GetDefaultProperties("tab")
+                attributes: GetDefaultProperties("tab"),
+                children: [
+                    subChildElement
+                ]
             }
             formElement.children = [
                 childElement
@@ -146,7 +156,7 @@ const AddDivider = (props: AddDividerProps) => {
                 <div style={{
                     padding: '10px',
                     width: '300px',
-                    minHeight: '500px',
+                    height: '450px'
                 }}>
                     <h3>Voeg een element toe</h3>
                     <Stack spacing={2} direction='column'>
@@ -154,6 +164,7 @@ const AddDivider = (props: AddDividerProps) => {
                             fullWidth
                             disablePortal
                             options={sortedOptions}
+                            ListboxProps={{ style: { maxHeight: '300px' } }}
                             onChange={(_, value) => value && optionSelected(value.value)}
                             renderInput={(params) => <TextField {...params} label="Selecteer" />} />
 

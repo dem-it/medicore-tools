@@ -92,6 +92,17 @@ function Properties(props: FormProps) {
       case 'collection-tabs':
         childElement.name = 'collection'
         childElement.attributes = GetDefaultProperties('tab')
+
+        const subChildElement: FormElement = {
+          index: selectedElement!.index + 2,
+          name: `fixedtext`,
+          path: `${selectedElement!.path}/1`,
+          attributes: GetDefaultProperties("fixedtext")
+        }
+        childElement.children = [
+          subChildElement
+        ]
+
         break
 
       default:
