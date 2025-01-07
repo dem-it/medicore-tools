@@ -1,25 +1,25 @@
-import { ConstructDefaultCalculation } from "./CalculationAttributes";
-import { ConstructDefaultCheckbox } from "./CheckboxAttributes";
-import { ConstructDefaultCheckboxCollection } from "./CheckboxCollectionAttributes";
-import { ConstructDefaultBox, ConstructDefaultTab, ConstructDefaultTable, ConstructDefaultTabs } from "./CollectionAttributes";
-import { ConstructDefaultDate, ConstructDefaultDateTime } from "./DateAttributes";
-import { ConstructDefaultDropdown } from "./DropdownAttributes";
-import { ConstructDefaultFileUpload, ConstructDefaultImageUpload } from "./FileUploadAttributes";
-import { ConstructDefaultFixedText, ConstructDefaultFixedTextFat } from "./FixedTextAttributes";
-import { ConstructDefaultInheritance } from "./InheritanceAttributes";
-import { ConstructDefaultInterformValue } from "./InterformValueAttributes";
-import { ConstructDefaultNumeric } from "./NumericAttributes";
-import { ConstructDefaultOption } from "./OptionAttributes";
-import { ConstructDefaultRadiobuttonCollection } from "./RadiobuttonCollectionAttributes";
-import { ConstructDefaultSearchSelect } from "./SearchSelectAttributes";
-import { ConstructDefaultText } from "./TextAttributes";
-import { ConstructDefaultTextMultiline } from "./TextMultilineAttributes";
+import { ConstructDefaultCalculation } from "./CalculationAttributes"
+import { ConstructDefaultCheckbox } from "./CheckboxAttributes"
+import { ConstructDefaultCheckboxCollection } from "./CheckboxCollectionAttributes"
+import { ConstructDefaultBox, ConstructDefaultTab, ConstructDefaultTable, ConstructDefaultTabs } from "./CollectionAttributes"
+import { ConstructDefaultDate, ConstructDefaultDateTime } from "./DateAttributes"
+import { ConstructDefaultDropdown } from "./DropdownAttributes"
+import { ConstructDefaultFileUpload, ConstructDefaultImageUpload } from "./FileUploadAttributes"
+import { ConstructDefaultFixedText, ConstructDefaultFixedTextFat } from "./FixedTextAttributes"
+import { ConstructDefaultInheritance } from "./InheritanceAttributes"
+import { ConstructDefaultInterformValue } from "./InterformValueAttributes"
+import { ConstructDefaultNumeric } from "./NumericAttributes"
+import { ConstructDefaultOption } from "./OptionAttributes"
+import { ConstructDefaultRadiobuttonCollection } from "./RadiobuttonCollectionAttributes"
+import { ConstructDefaultSearchSelect } from "./SearchSelectAttributes"
+import { ConstructDefaultText } from "./TextAttributes"
+import { ConstructDefaultTextMultiline } from "./TextMultilineAttributes"
 
 const ConvertToRecord = (object: any): Record<string, string> => {
-    const properties: Record<string, string> = {};
+    const properties: Record<string, string> = {}
     for (const key in object) {
-        if (object.hasOwnProperty(key)) {
-            properties[key] = String(object[key]);
+        if (Object.prototype.hasOwnProperty.call(object, key)) {
+            properties[key] = String(object[key])
         }
     }
     console.log("Properties", properties)

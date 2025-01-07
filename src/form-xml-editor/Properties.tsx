@@ -1,22 +1,22 @@
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, Card, CardContent, CardHeader, Grid, Stack } from "@mui/material";
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { useEffect, useState } from "react";
-import XMLViewer from 'react-xml-viewer';
-import FormElement from "../interfaces/FormElement";
-import ConstructXmlService from '../services/ConstructXmlService';
-import FormElementService from "../services/FormElementService";
-import ParseXmlElementService from '../services/ParseXmlElementService';
-import { GetDefaultProperties } from './Attributes/PropertiesHelper';
-import { useFormData } from "./FormDataContext/FormDataProvider";
-import { FormProps } from "./Interfaces";
-import Property from "./Property";
+import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Button, Card, CardContent, CardHeader, Grid, Stack } from "@mui/material"
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import React, { useEffect, useState } from "react"
+import XMLViewer from 'react-xml-viewer'
+import FormElement from "../interfaces/FormElement"
+import ConstructXmlService from '../services/ConstructXmlService'
+import FormElementService from "../services/FormElementService"
+import ParseXmlElementService from '../services/ParseXmlElementService'
+import { GetDefaultProperties } from './Attributes/PropertiesHelper'
+import { useFormData } from "./FormDataContext/FormDataProvider"
+import { FormProps } from "./Interfaces"
+import Property from "./Property"
 
-function Properties(props: FormProps) {
+const Properties: React.FC<FormProps> = (props) => {
 
   const { selectedElementPath, setSelectedElementPath, parsedXmlContent, setParsedXmlContent } = useFormData()
 
@@ -90,21 +90,22 @@ function Properties(props: FormProps) {
         break
 
       case 'collection-tabs':
-        childElement.name = 'collection'
-        childElement.attributes = GetDefaultProperties('tab')
+        {
+          childElement.name = 'collection'
+          childElement.attributes = GetDefaultProperties('tab')
 
-        const subChildElement: FormElement = {
-          index: selectedElement!.index + 2,
-          name: `fixedtext`,
-          path: `${selectedElement!.path}/1`,
-          attributes: GetDefaultProperties("fixedtext")
+          const subChildElement: FormElement = {
+            index: selectedElement!.index + 2,
+            name: `fixedtext`,
+            path: `${selectedElement!.path}/1`,
+            attributes: GetDefaultProperties("fixedtext")
+          }
+          childElement.children = [
+            subChildElement
+          ]
+
+          break
         }
-        childElement.children = [
-          subChildElement
-        ]
-
-        break
-
       default:
         return undefined
     }
@@ -252,7 +253,7 @@ function Properties(props: FormProps) {
         </CardContent>
       </Card>
     </>
-  );
+  )
 }
 
-export default Properties;
+export default Properties

@@ -1,3 +1,4 @@
+import React from "react"
 import { Construct } from "../Attributes/FixedTextAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
 import AddDivider from "./HighOrderComponent/AddDivider"
@@ -6,7 +7,7 @@ import AddDivider from "./HighOrderComponent/AddDivider"
     <fixedtext name="tekstvb" label="Dit is drikgedukte tekst" displayLabel="true" value="" visible="true" exportable="true"/>
     <fixedtext name="tekstvb2" label="" displayLabel="false" value="Dit is normale tekst" visible="true" exportable="true"/>
 */
-const FixedText = (props: ResultXmlElementProps) => {
+const FixedText: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

@@ -1,21 +1,22 @@
-import { ResultXmlElementProps } from '../Interfaces';
-import Calculation from './Calculation';
-import CheckboxCollection from './CheckboxCollection';
-import Collection from './Collection';
-import Date from './Date';
-import Dropdown from './Dropdown';
-import FileUpload from './FileUpload';
-import FixedText from './FixedText';
-import Inheritance from './Inheritance';
-import InterformValue from './InterformValue';
-import Numeric from './Numeric';
-import RadiobuttonCollection from './RadiobuttonCollection';
-import SearchSelect from './SearchSelect';
-import TemplateForm from './TemplateForm';
-import Text from './Text';
-import TextMultiline from './TextMultiline';
+import React from 'react'
+import { ResultXmlElementProps } from '../Interfaces'
+import Calculation from './Calculation'
+import CheckboxCollection from './CheckboxCollection'
+import Collection from './Collection'
+import Date from './Date'
+import Dropdown from './Dropdown'
+import FileUpload from './FileUpload'
+import FixedText from './FixedText'
+import Inheritance from './Inheritance'
+import InterformValue from './InterformValue'
+import Numeric from './Numeric'
+import RadiobuttonCollection from './RadiobuttonCollection'
+import SearchSelect from './SearchSelect'
+import TemplateForm from './TemplateForm'
+import Text from './Text'
+import TextMultiline from './TextMultiline'
 
-const ResultXmlElement = (props: ResultXmlElementProps) => {
+const ResultXmlElement: React.FC<ResultXmlElementProps> = (props) => {
 
   const element = props.element
 
@@ -74,4 +75,4 @@ const ResultXmlElement = (props: ResultXmlElementProps) => {
   </>
 }
 
-export default ResultXmlElement;
+export default ResultXmlElement

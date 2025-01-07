@@ -1,10 +1,10 @@
-import { Grid, Stack, Switch, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import FormElementService from "../services/FormElementService";
-import { useFormData } from "./FormDataContext/FormDataProvider";
-import { PropertyProps } from "./Interfaces";
+import { Grid, Stack, Switch, TextField } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import FormElementService from "../services/FormElementService"
+import { useFormData } from "./FormDataContext/FormDataProvider"
+import { PropertyProps } from "./Interfaces"
 
-function Property(props: PropertyProps) {
+const Property: React.FC<PropertyProps> = (props) => {
 
     const { parsedXmlContent, setParsedXmlContent } = useFormData()
 

@@ -1,3 +1,4 @@
+import React from "react"
 import { ResultXmlElementProps } from "../../Interfaces"
 
 interface HeaderLabelProps extends ResultXmlElementProps {
@@ -5,7 +6,7 @@ interface HeaderLabelProps extends ResultXmlElementProps {
     labelElement?: JSX.Element
 }
 
-const HeaderLabel = (props: HeaderLabelProps) => {
+const HeaderLabel : React.FC<HeaderLabelProps> = (props) => {
 
     const className = props.selectedElementPath === props.element.path ? 'selected' : 'selectable'
 

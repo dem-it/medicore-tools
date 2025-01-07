@@ -1,16 +1,20 @@
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import DescriptionIcon from '@mui/icons-material/Description';
-import HomeIcon from '@mui/icons-material/Home';
-import { Box, Button, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import DescriptionIcon from '@mui/icons-material/Description'
+import HomeIcon from '@mui/icons-material/Home'
+import { Box, Button, CssBaseline, Drawer, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
+const drawerWidth = 240
+const collapsedDrawerWidth = 60
 
-const drawerWidth = 240;
-const collapsedDrawerWidth = 60;
+interface SideMenuProps {
+    width: number
+    setWidth: (width: number) => void
+}
 
-function SideMenu({ width, setWidth }: { width: number, setWidth: (width: number) => void }) {
+const SideMenu: React.FC<SideMenuProps> = (props) => {
     const [open, setOpen] = useState(false)
 
     const handleDrawerToggle = () => {
@@ -18,8 +22,8 @@ function SideMenu({ width, setWidth }: { width: number, setWidth: (width: number
     }
 
     useEffect(() => {
-        setWidth(open ? drawerWidth : collapsedDrawerWidth)
-    }, [open, setWidth])
+        props.setWidth(open ? drawerWidth : collapsedDrawerWidth)
+    }, [open, props.setWidth])
 
     return (
         <>
@@ -29,7 +33,7 @@ function SideMenu({ width, setWidth }: { width: number, setWidth: (width: number
                 sx={{
                     width: open ? drawerWidth : collapsedDrawerWidth,
                     flexShrink: 0,
-                    [`& .MuiDrawer-paper`]: { width: width, boxSizing: 'border-box' },
+                    [`& .MuiDrawer-paper`]: { width: props.width, boxSizing: 'border-box' },
                 }}
             >
                 <List sx={{ overflowX: 'hidden' }}>
@@ -62,7 +66,7 @@ function SideMenu({ width, setWidth }: { width: number, setWidth: (width: number
                 </List>
             </Drawer>
         </>
-    );
+    )
 }
 
-export default SideMenu;
+export default SideMenu

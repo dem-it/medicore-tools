@@ -1,3 +1,4 @@
+import React from "react"
 import { Construct } from "../Attributes/CalculationAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
 import AddDivider from "./HighOrderComponent/AddDivider"
@@ -10,7 +11,7 @@ import HeaderLabel from "./HighOrderComponent/HeaderLabel"
     <calculation name="Resultaat_3" label="Score 1 gedeeld 2" displayLabel="true" value="" visible="true" formula="{Numericscore1}/{Numericscore2}" decimals="2" rounding="standard" exportable="true"/>
     <calculation name="Resultaat_4" label="Score 1 min 2" displayLabel="true" value="" visible="true" formula="{Numericscore1}-{Numericscore2}" decimals="2" rounding="standard" exportable="true"/>
 */
-const Calculation = (props: ResultXmlElementProps) => {
+const Calculation: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

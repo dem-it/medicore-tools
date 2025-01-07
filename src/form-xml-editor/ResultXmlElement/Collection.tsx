@@ -1,18 +1,18 @@
-import { Paper } from '@mui/material';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
-import Tabs from '@mui/material/Tabs';
-import { useState } from "react";
-import ResultXmlElement from ".";
-import { CollectionStyle, Construct, ConstructBox, ConstructTable } from "../Attributes/CollectionAttributes";
-import { ResultXmlElementProps } from '../Interfaces';
-import AddDivider from './HighOrderComponent/AddDivider';
-import HeaderLabel from './HighOrderComponent/HeaderLabel';
+import { Paper } from '@mui/material'
+import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableRow from '@mui/material/TableRow'
+import Tabs from '@mui/material/Tabs'
+import React, { useState } from "react"
+import ResultXmlElement from "."
+import { CollectionStyle, Construct, ConstructBox, ConstructTable } from "../Attributes/CollectionAttributes"
+import { ResultXmlElementProps } from '../Interfaces'
+import AddDivider from './HighOrderComponent/AddDivider'
+import HeaderLabel from './HighOrderComponent/HeaderLabel'
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -50,7 +50,7 @@ function a11yProps(index: number) {
         <collection name="Tabblad 3: Overerving" visible="true" exportable="true" style="tab">
     </collection>
  */
-const Collection = (props: ResultXmlElementProps) => {
+const Collection : React.FC<ResultXmlElementProps> = (props) => {
 
 
     const attributes = Construct(props.element.attributes)

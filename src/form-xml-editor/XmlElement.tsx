@@ -1,7 +1,8 @@
-import { Button, ButtonProps } from "@mui/material";
-import { XmlElementProps } from './Interfaces';
+import { Button, ButtonProps } from "@mui/material"
+import React from 'react'
+import { XmlElementProps } from './Interfaces'
 
-const XmlElement = (props: XmlElementProps) => {
+const XmlElement: React.FC<XmlElementProps> = (props) => {
 
     const element = props.element
     if (!element)

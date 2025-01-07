@@ -1,4 +1,4 @@
-import FormElement from "../interfaces/FormElement";
+import FormElement from "../interfaces/FormElement"
 
 class ConstructXmlService {
 
@@ -34,7 +34,7 @@ class ConstructXmlService {
             doc.appendChild(root)
         }
 
-        let xmlString = new XMLSerializer().serializeToString(doc)
+        const xmlString = new XMLSerializer().serializeToString(doc)
         return xmlString
     }
 

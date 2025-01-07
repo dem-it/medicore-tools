@@ -1,9 +1,10 @@
-import { Button } from "@mui/material";
-import { styled } from '@mui/material/styles';
-import { Construct } from "../Attributes/FileUploadAttributes";
-import { ResultXmlElementProps } from "../Interfaces";
-import AddDivider from "./HighOrderComponent/AddDivider";
-import HeaderLabel from "./HighOrderComponent/HeaderLabel";
+import { Button } from "@mui/material"
+import { styled } from '@mui/material/styles'
+import React from "react"
+import { Construct } from "../Attributes/FileUploadAttributes"
+import { ResultXmlElementProps } from "../Interfaces"
+import AddDivider from "./HighOrderComponent/AddDivider"
+import HeaderLabel from "./HighOrderComponent/HeaderLabel"
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -24,7 +25,7 @@ interface FileUploadProps extends ResultXmlElementProps {
 /* Example
     <fileupload name="upload file" label="Voeg andere bestanden toe aan een formulier" mandatory="false" value="" visible="true" exportable="true"/>
 */
-const FileUpload = (props: FileUploadProps) => {
+const FileUpload: React.FC<FileUploadProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

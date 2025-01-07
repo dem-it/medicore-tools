@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
-import { styled } from '@mui/system';
-import { useEffect, useState } from "react";
-import ParseXmlElementService from '../services/ParseXmlElementService';
-import { useFormData } from './FormDataContext/FormDataProvider';
-import { FormProps } from './Interfaces';
+import { Button } from "@mui/material"
+import { styled } from '@mui/system'
+import React, { useEffect, useState } from "react"
+import ParseXmlElementService from '../services/ParseXmlElementService'
+import { useFormData } from './FormDataContext/FormDataProvider'
+import { FormProps } from './Interfaces'
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -15,9 +15,9 @@ const VisuallyHiddenInput = styled('input')({
   left: 0,
   whiteSpace: 'nowrap',
   width: 1,
-});
+})
 
-function InputOutput(props: FormProps) {
+const InputOutput: React.FC<FormProps> = () => {
 
   const {
     xmlContent,
@@ -51,9 +51,9 @@ function InputOutput(props: FormProps) {
         }
 
         // clean the input file
-        e.target.value = null;
-      };
-      reader.readAsText(file);
+        e.target.value = null
+      }
+      reader.readAsText(file)
     }
   }
 
@@ -67,8 +67,7 @@ function InputOutput(props: FormProps) {
     document.body.removeChild(link)
   }
 
-  return (
-    <>
+  return <React.Fragment>
       <Button
         component="label"
         role={undefined}
@@ -93,8 +92,7 @@ function InputOutput(props: FormProps) {
           Download XML
         </Button>
       </>}
-    </>
-  );
+    </React.Fragment>
 }
 
-export default InputOutput;
+export default InputOutput

@@ -1,4 +1,5 @@
 import { FormControl, FormControlLabel, Radio as MaterialRadio, RadioGroup } from "@mui/material"
+import React from "react"
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { Construct } from "../Attributes/RadiobuttonCollectionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
@@ -12,7 +13,7 @@ import HeaderLabel from "./HighOrderComponent/HeaderLabel"
     <option name="optie_1" label="optie 3" value="0" visible="true" active="true"/>
 </radio>
  */
-const RadiobuttonCollection = (props: ResultXmlElementProps) => {
+const RadiobuttonCollection: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 
@@ -30,7 +31,7 @@ const RadiobuttonCollection = (props: ResultXmlElementProps) => {
 function Radio(props: ResultXmlElementProps) {
 
     const attributes = ConstructOption(props.element.attributes)
-    
+
     const classNames = [
         props.selectedElementPath === props.element.path ? 'selected' : 'selectable',
         attributes.visible ? '' : 'hidden'

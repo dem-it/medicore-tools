@@ -1,12 +1,13 @@
-import { Grid, Stack } from "@mui/material";
-import { FormDataProvider, useFormData } from "./FormDataContext/FormDataProvider";
-import InputOutput from "./InputOutput";
-import { FormProps } from "./Interfaces";
-import Properties from "./Properties";
-import Result from "./Result";
-import Xml from "./Xml";
+import { Grid, Stack } from "@mui/material"
+import React from 'react'
+import { FormDataProvider, useFormData } from "./FormDataContext/FormDataProvider"
+import InputOutput from "./InputOutput"
+import { FormProps } from "./Interfaces"
+import Properties from "./Properties"
+import Result from "./Result"
+import Xml from "./Xml"
 
-function FormXmlEditor() {
+const FormXmlEditor = () => {
 
   return <FormDataProvider>
     <FormXmlEditorWithContext />
@@ -17,7 +18,7 @@ function FormXmlEditorWithContext() {
 
   const {
     xmlContent
-  } = useFormData();
+  } = useFormData()
 
   const formProps: FormProps = {
     sx: {}
@@ -26,7 +27,7 @@ function FormXmlEditorWithContext() {
   const hasXml = xmlContent.length > 0
 
   return (
-    <>
+    <React.Fragment>
       <Stack
         spacing={2}
         direction='row'
@@ -56,7 +57,7 @@ function FormXmlEditorWithContext() {
           </Grid>
         </Grid>
       </>}
-    </>
+    </React.Fragment>
   );
 }
 

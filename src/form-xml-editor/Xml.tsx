@@ -1,15 +1,15 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Card, CardContent, CardHeader } from "@mui/material";
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { useEffect, useRef, useState } from "react";
-import XMLViewer from 'react-xml-viewer';
-import { useFormData } from './FormDataContext/FormDataProvider';
-import { FormProps } from './Interfaces';
-import XmlElement from './XmlElement';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Card, CardContent, CardHeader } from "@mui/material"
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import React, { useEffect, useState } from "react"
+import XMLViewer from 'react-xml-viewer'
+import { useFormData } from './FormDataContext/FormDataProvider'
+import { FormProps } from './Interfaces'
+import XmlElement from './XmlElement'
 
-function Xml(props: FormProps) {
+const Xml: React.FC<FormProps> = (props) => {
 
   const {
     xmlContent,
@@ -18,7 +18,6 @@ function Xml(props: FormProps) {
     setSelectedElementPath,
   } = useFormData()
   const [xml, setXml] = useState(xmlContent)
-  const textFieldRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (xml === xmlContent)

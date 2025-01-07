@@ -1,9 +1,10 @@
-import { Card, CardContent, CardHeader } from "@mui/material";
-import { useFormData } from "./FormDataContext/FormDataProvider";
-import { FormProps } from "./Interfaces";
-import ResultXmlElement from "./ResultXmlElement/index";
+import { Card, CardContent, CardHeader } from "@mui/material"
+import React from "react"
+import { useFormData } from "./FormDataContext/FormDataProvider"
+import { FormProps } from "./Interfaces"
+import ResultXmlElement from "./ResultXmlElement/index"
 
-function Result(props: FormProps) {
+const Result: React.FC<FormProps> = (props) => {
 
   const { parsedXmlContent, selectedElementPath, setSelectedElementPath } = useFormData()
 

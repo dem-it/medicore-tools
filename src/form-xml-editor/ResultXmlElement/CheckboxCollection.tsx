@@ -1,4 +1,5 @@
 import { FormControlLabel, FormGroup, Checkbox as MaterialCheckbox } from "@mui/material"
+import React from "react"
 import { Construct } from "../Attributes/CheckboxCollectionAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
 import AddDivider from "./HighOrderComponent/AddDivider"
@@ -11,7 +12,7 @@ import HeaderLabel from "./HighOrderComponent/HeaderLabel"
     <checkbox name="checkbox03" label="Checkbox 3" value="0" mandatory="false" visible="true" exportable="true"/>
 </checkboxcollection>
  */
-const CheckboxCollection = (props: ResultXmlElementProps) => {
+const CheckboxCollection: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

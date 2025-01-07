@@ -1,3 +1,4 @@
+import React from "react"
 import { Construct } from "../Attributes/InheritanceAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
 import AddDivider from "./HighOrderComponent/AddDivider"
@@ -5,7 +6,7 @@ import AddDivider from "./HighOrderComponent/AddDivider"
 /* Example
     <inheritance name="will_pick_value_from_another_form_only_first_time" label="Inheritance" displayLabel="true" value="" visible="true" templateFormUuid="99999999" fieldUuid="9999999" exportable="true" />
 */
-const Inheritance = (props: ResultXmlElementProps) => {
+const Inheritance: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

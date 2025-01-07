@@ -1,4 +1,4 @@
-import { AttributesBase } from "./AttributesBase";
+import { AttributesBase } from "./AttributesBase"
 
 export interface FixedTextAttributes extends AttributesBase {
     visible: boolean;
@@ -10,6 +10,7 @@ export interface FixedTextAttributes extends AttributesBase {
 
 export const Construct = (attributes: Record<string, string>): FixedTextAttributes => {
     return {
+        //uuid: attributes['uuid'],
         name: attributes['name'],
         visible: attributes['visible'] === "true",
         displayLabel: attributes['displayLabel'] === "true",
@@ -21,6 +22,7 @@ export const Construct = (attributes: Record<string, string>): FixedTextAttribut
 
 export const ConstructDefaultFixedText = (): FixedTextAttributes => {
     return {
+        //uuid: '',
         name: `tekst-${Date.now()}`,
         visible: true,
         displayLabel: false,
@@ -31,7 +33,7 @@ export const ConstructDefaultFixedText = (): FixedTextAttributes => {
 }
 
 export const ConstructDefaultFixedTextFat = (): FixedTextAttributes => {
-    let defaultAttributes = ConstructDefaultFixedText()
+    const defaultAttributes = ConstructDefaultFixedText()
     defaultAttributes.label = "Dikgedrukte tekst"
     defaultAttributes.displayLabel = true
     defaultAttributes.value = ''

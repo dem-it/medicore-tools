@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material"
+import React from "react"
 import { Construct } from "../Attributes/NumericAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
 import AddDivider from "./HighOrderComponent/AddDivider"
@@ -10,7 +11,7 @@ import HeaderLabel from "./HighOrderComponent/HeaderLabel"
     <numeric name="Numericscore1" label="Score 1" displayLabel="true" value="0" mandatory="false" visible="true" format="" exportable="true"/>
     <numeric name="Numericscore2" label="Score 2" displayLabel="true" value="0" mandatory="false" visible="true" format="" exportable="true"/>				
 */
-const Numeric = (props: ResultXmlElementProps) => {
+const Numeric: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 

@@ -1,5 +1,5 @@
-import { SxProps } from "@mui/system";
-import FormElement from "../interfaces/FormElement";
+import { SxProps } from "@mui/system"
+import FormElement from "../interfaces/FormElement"
 
 
 /**
@@ -9,25 +9,25 @@ export interface FormProps {
   /**
    * The styling properties to be applied to the component.
    */
-  sx: SxProps;
+  sx: SxProps
 }
 
 export interface XmlElementProps {
-    element: FormElement | undefined;
-    selectedElementPath: string | undefined;
-    setSelectedElementPath: (path: string) => void;
-  }
-  
-export interface ResultXmlElementProps {
-  element: FormElement;
-  selectedElementPath: string | undefined;
-  setSelectedElementPath: (path: string) => void;
+  element: FormElement | undefined
+  selectedElementPath: string | undefined
+  setSelectedElementPath: (path: string) => void
 }
-  
+
+export interface ResultXmlElementProps {
+  element: FormElement
+  selectedElementPath: string | undefined
+  setSelectedElementPath: (path: string) => void
+}
+
 export interface PropertyProps {
-  parentElement: FormElement;
-  path: string;
-  name: string;
-  value: string;
-  skipTriggerChange?: boolean;
+  parentElement: FormElement
+  path: string
+  name: string
+  value: string
+  skipTriggerChange?: boolean
 }

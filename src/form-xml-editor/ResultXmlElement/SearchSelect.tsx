@@ -1,4 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material"
+import React from "react"
 import { Construct as ConstructOption } from "../Attributes/OptionAttributes"
 import { Construct } from "../Attributes/SearchSelectAttributes"
 import { ResultXmlElementProps } from "../Interfaces"
@@ -12,11 +13,11 @@ import HeaderLabel from "./HighOrderComponent/HeaderLabel"
     <option name="option1" label="Eigen optie 3" value="1" visible="true" active="false"/>
 </searchselect>
  */
-const SearchSelect = (props: ResultXmlElementProps) => {
+const SearchSelect: React.FC<ResultXmlElementProps> = (props) => {
 
     const attributes = Construct(props.element.attributes)
 
-    const options = props.element.children?.map((child, _) => {
+    const options = props.element.children?.map((child) => {
         const childAttributes = ConstructOption(child.attributes)
         return {
             label: childAttributes.label,
