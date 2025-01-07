@@ -1,4 +1,4 @@
-import { AttributesBase } from "./AttributesBase";
+import { AttributesBase } from "./AttributesBase"
 
 export interface CalculationAttributes extends AttributesBase {
     label: string;
@@ -13,6 +13,7 @@ export interface CalculationAttributes extends AttributesBase {
 
 export const Construct = (attributes : Record<string, string>): CalculationAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -25,10 +26,11 @@ export const Construct = (attributes : Record<string, string>): CalculationAttri
     }
 }
 
-export const ConstructDefaultCalculation = (): CalculationAttributes => {
+export const ConstructDefaultCalculation = (formName: string): CalculationAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `calculation-${Date.now()}`,
+        name: `${formName}-calculation-${Date.now()}`,
         label: 'Berekening',
         value: "",
         displayLabel: true,

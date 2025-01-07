@@ -1,5 +1,6 @@
-export interface OptionAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface OptionAttributes extends AttributesBase {
     visible: boolean;
     label: string;
     value: string;
@@ -8,6 +9,7 @@ export interface OptionAttributes {
 
 export const Construct = (attributes : Record<string, string>): OptionAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         active: attributes['exportable'] === "true",
@@ -16,10 +18,11 @@ export const Construct = (attributes : Record<string, string>): OptionAttributes
     }
 }
 
-export const ConstructDefaultOption = (): OptionAttributes => {
+export const ConstructDefaultOption = (formName: string): OptionAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `option-${Date.now()}`,
+        name: `${formName}-option-${Date.now()}`,
         active: true,
         label: "Optie",
         value: "0",

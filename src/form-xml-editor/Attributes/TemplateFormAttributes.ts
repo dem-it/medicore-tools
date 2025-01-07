@@ -1,5 +1,6 @@
-export interface TemplateFormAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface TemplateFormAttributes extends AttributesBase {
     employeeId: number;
     active: boolean;
     lockTime: string;
@@ -12,6 +13,7 @@ export interface TemplateFormAttributes {
 
 export const Construct = (attributes : Record<string, string>): TemplateFormAttributes => {
     return {
+        uuid: attributes['uuid'],
         name: attributes['name'],
         employeeId: parseInt(attributes['employeeId']),
         active: attributes['active'] === "true",

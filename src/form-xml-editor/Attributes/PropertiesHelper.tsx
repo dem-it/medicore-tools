@@ -23,54 +23,54 @@ const ConvertToRecord = (object: any): Record<string, string> => {
         }
     }
     console.log("Properties", properties)
-    return properties;
+    return properties
 }
-export const GetDefaultProperties = (element: string): Record<string, string> => {
+export const GetDefaultProperties = (element: string, formName: string): Record<string, string> => {
     switch (element) {
         case "fixedtext":
-            return ConvertToRecord(ConstructDefaultFixedText())
+            return ConvertToRecord(ConstructDefaultFixedText(formName))
         case "fixedtext-fat":
-            return ConvertToRecord(ConstructDefaultFixedTextFat())
+            return ConvertToRecord(ConstructDefaultFixedTextFat(formName))
         case "calculation":
-            return ConvertToRecord(ConstructDefaultCalculation())
+            return ConvertToRecord(ConstructDefaultCalculation(formName))
         case "checkboxcollection":
-            return ConvertToRecord(ConstructDefaultCheckboxCollection())
+            return ConvertToRecord(ConstructDefaultCheckboxCollection(formName))
         case "collection-table":
-            return ConvertToRecord(ConstructDefaultTable())
+            return ConvertToRecord(ConstructDefaultTable(formName))
         case "collection-box":
-            return ConvertToRecord(ConstructDefaultBox())
+            return ConvertToRecord(ConstructDefaultBox(formName))
         case "collection-tabs":
-            return ConvertToRecord(ConstructDefaultTabs())
+            return ConvertToRecord(ConstructDefaultTabs(formName))
         case "date":
-            return ConvertToRecord(ConstructDefaultDate())
+            return ConvertToRecord(ConstructDefaultDate(formName))
         case "date-time":
-            return ConvertToRecord(ConstructDefaultDateTime())
+            return ConvertToRecord(ConstructDefaultDateTime(formName))
         case "dropdown":
-            return ConvertToRecord(ConstructDefaultDropdown())
+            return ConvertToRecord(ConstructDefaultDropdown(formName))
         case "radio":
-            return ConvertToRecord(ConstructDefaultRadiobuttonCollection())
+            return ConvertToRecord(ConstructDefaultRadiobuttonCollection(formName))
         case "searchselect":
-            return ConvertToRecord(ConstructDefaultSearchSelect())
+            return ConvertToRecord(ConstructDefaultSearchSelect(formName))
         case "fileupload":
-            return ConvertToRecord(ConstructDefaultFileUpload())
+            return ConvertToRecord(ConstructDefaultFileUpload(formName))
         case "imageupload":
-            return ConvertToRecord(ConstructDefaultImageUpload())
+            return ConvertToRecord(ConstructDefaultImageUpload(formName))
         case "inheritance":
-            return ConvertToRecord(ConstructDefaultInheritance())
+            return ConvertToRecord(ConstructDefaultInheritance(formName))
         case "interformvalue":
-            return ConvertToRecord(ConstructDefaultInterformValue())
+            return ConvertToRecord(ConstructDefaultInterformValue(formName))
         case "numeric":
-            return ConvertToRecord(ConstructDefaultNumeric())
+            return ConvertToRecord(ConstructDefaultNumeric(formName))
         case "text":
-            return ConvertToRecord(ConstructDefaultText())
+            return ConvertToRecord(ConstructDefaultText(formName))
         case "textarea":
-            return ConvertToRecord(ConstructDefaultTextMultiline())
+            return ConvertToRecord(ConstructDefaultTextMultiline(formName))
         case "tab":
-            return ConvertToRecord(ConstructDefaultTab())
+            return ConvertToRecord(ConstructDefaultTab(formName))
         case "option":
-            return ConvertToRecord(ConstructDefaultOption())
-        case "checkbox": 
-            return ConvertToRecord(ConstructDefaultCheckbox())
+            return ConvertToRecord(ConstructDefaultOption(formName))
+        case "checkbox":
+            return ConvertToRecord(ConstructDefaultCheckbox(formName))
 
         default:
             return {}

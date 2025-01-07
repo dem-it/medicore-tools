@@ -1,5 +1,6 @@
-export interface CollectionOptionsAttributes {
-    name: string;
+import { AttributesBase } from './AttributesBase'
+
+export interface CollectionOptionsAttributes extends AttributesBase {
     visible: boolean;
     label: string;
     value: string;
@@ -9,6 +10,7 @@ export interface CollectionOptionsAttributes {
 
 export const Construct = (attributes : Record<string, string>): CollectionOptionsAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         exportable: attributes['exportable'] === "true",

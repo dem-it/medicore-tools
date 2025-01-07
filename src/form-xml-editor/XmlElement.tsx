@@ -10,6 +10,7 @@ const XmlElement: React.FC<XmlElementProps> = (props) => {
 
     const onButtonClick = (path: string) => {
         props.setSelectedElementPath(path)
+        console.log(path)
     }
 
     const hasText = element.children?.length === 0

@@ -1,4 +1,4 @@
-import { AttributesBase } from "./AttributesBase";
+import { AttributesBase } from "./AttributesBase"
 
 export interface CheckboxAttributes extends AttributesBase {
     visible: boolean;
@@ -10,6 +10,7 @@ export interface CheckboxAttributes extends AttributesBase {
 
 export const Construct = (attributes : Record<string, string>): CheckboxAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         exportable: attributes['exportable'] === "true",
@@ -19,10 +20,11 @@ export const Construct = (attributes : Record<string, string>): CheckboxAttribut
     }
 }
 
-export const ConstructDefaultCheckbox = (): CheckboxAttributes => {
+export const ConstructDefaultCheckbox = (formName: string): CheckboxAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `checkbox-${Date.now()}`,
+        name: `${formName}-checkbox-${Date.now()}`,
         exportable: true,
         label: "Checkbox",
         mandatory: false,

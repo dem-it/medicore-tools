@@ -1,5 +1,6 @@
-export interface NumericAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface NumericAttributes extends AttributesBase {
     visible: boolean;
     displayLabel: boolean;
     label: string;
@@ -11,6 +12,7 @@ export interface NumericAttributes {
 
 export const Construct = (attributes : Record<string, string>): NumericAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         displayLabel: attributes['displayLabel'] === "true",
@@ -22,10 +24,11 @@ export const Construct = (attributes : Record<string, string>): NumericAttribute
     }
 }
 
-export const ConstructDefaultNumeric = (): NumericAttributes => {
+export const ConstructDefaultNumeric = (formName: string): NumericAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `numeric-${Date.now()}`,
+        name: `${formName}-numeric-${Date.now()}`,
         displayLabel: true,
         label: "Nummer waarde",
         value: undefined,

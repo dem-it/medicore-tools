@@ -1,5 +1,6 @@
-export interface DateAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface DateAttributes extends AttributesBase {
     label: string;
     value: string;
     mandatory: boolean;
@@ -12,6 +13,7 @@ export interface DateAttributes {
 
 export const Construct = (attributes : Record<string, string>): DateAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -24,10 +26,11 @@ export const Construct = (attributes : Record<string, string>): DateAttributes =
     }
 }
 
-export const ConstructDefaultDate = (): DateAttributes => {
+export const ConstructDefaultDate = (formName: string): DateAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `date-${Date.now()}`,
+        name: `${formName}-date-${Date.now()}`,
         label: 'Datum',
         value: "2024-01-01",
         mandatory: false,
@@ -39,10 +42,11 @@ export const ConstructDefaultDate = (): DateAttributes => {
 }
 
 
-export const ConstructDefaultDateTime = (): DateAttributes => {
+export const ConstructDefaultDateTime = (formName: string): DateAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `date-${Date.now()}`,
+        name: `${formName}-date-${Date.now()}`,
         label: 'Datum en tijd',
         value: "2024-01-01 08:45",
         mandatory: false,

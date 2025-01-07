@@ -1,5 +1,6 @@
-export interface FileUploadAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface FileUploadAttributes extends AttributesBase {
     label: string;
     value: string;
     mandatory: boolean;
@@ -9,6 +10,7 @@ export interface FileUploadAttributes {
 
 export const Construct = (attributes : Record<string, string>): FileUploadAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -18,10 +20,11 @@ export const Construct = (attributes : Record<string, string>): FileUploadAttrib
     }
 }
 
-export const ConstructDefaultFileUpload = (): FileUploadAttributes => {
+export const ConstructDefaultFileUpload = (formName: string): FileUploadAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `fileupload-${Date.now()}`,
+        name: `${formName}-fileupload-${Date.now()}`,
         label: "Upload een bestand",
         value: "",
         mandatory: false,
@@ -30,10 +33,11 @@ export const ConstructDefaultFileUpload = (): FileUploadAttributes => {
 }
 
 
-export const ConstructDefaultImageUpload = (): FileUploadAttributes => {
+export const ConstructDefaultImageUpload = (formName: string): FileUploadAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `imageupload-${Date.now()}`,
+        name: `${formName}-imageupload-${Date.now()}`,
         label: "Upload een plaatje",
         value: "",
         mandatory: false,

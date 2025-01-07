@@ -1,5 +1,6 @@
-export interface InheritanceAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface InheritanceAttributes extends AttributesBase {
     label: string;
     displayLabel: boolean;
     value: string;
@@ -11,6 +12,7 @@ export interface InheritanceAttributes {
 
 export const Construct = (attributes : Record<string, string>): InheritanceAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -22,10 +24,11 @@ export const Construct = (attributes : Record<string, string>): InheritanceAttri
     }
 }
 
-export const ConstructDefaultInheritance = (): InheritanceAttributes => {
+export const ConstructDefaultInheritance = (formName: string): InheritanceAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `inheritance-${Date.now()}`,
+        name: `${formName}-inheritance-${Date.now()}`,
         label: "Overerving",
         value: "",
         displayLabel: true,

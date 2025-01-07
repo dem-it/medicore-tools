@@ -1,4 +1,4 @@
-import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes";
+import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes"
 
 export type RadiobuttonCollectionAttributes = CollectionOptionsAttributes
 
@@ -6,10 +6,11 @@ export const Construct = (attributes : Record<string, string>): RadiobuttonColle
     return ConstructCollectionOptions(attributes)
 }
 
-export const ConstructDefaultRadiobuttonCollection = (): RadiobuttonCollectionAttributes => {
+export const ConstructDefaultRadiobuttonCollection = (formName: string): RadiobuttonCollectionAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `radiobuttoncollection-${Date.now()}`,
+        name: `${formName}-radiobuttoncollection-${Date.now()}`,
         exportable: true,
         label: "Radiobuttons",
         value: "",

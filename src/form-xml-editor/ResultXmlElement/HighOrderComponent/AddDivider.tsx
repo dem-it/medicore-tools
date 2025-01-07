@@ -1,21 +1,20 @@
-import { Autocomplete, Button, Chip, Divider, Stack, TextField } from "@mui/material";
-import Popover from '@mui/material/Popover';
-import * as React from 'react';
-import { useState } from 'react';
-import FormElement from "../../../interfaces/FormElement";
-import ConstructXmlService from "../../../services/ConstructXmlService";
-import FormElementService from "../../../services/FormElementService";
-import ParseXmlElementService from "../../../services/ParseXmlElementService";
-import { GetDefaultProperties } from "../../Attributes/PropertiesHelper";
-import { useFormData } from "../../FormDataContext/FormDataProvider";
+import { Autocomplete, Button, Chip, Divider, Stack, TextField } from "@mui/material"
+import Popover from '@mui/material/Popover'
+import * as React from 'react'
+import { useState } from 'react'
+import FormElement from "../../../interfaces/FormElement"
+import ConstructXmlService from "../../../services/ConstructXmlService"
+import FormElementService from "../../../services/FormElementService"
+import ParseXmlElementService from "../../../services/ParseXmlElementService"
+import { GetDefaultProperties } from "../../Attributes/PropertiesHelper"
+import { useFormData } from "../../FormDataContext/FormDataProvider"
 
 interface AddDividerProps {
     path: string
 }
 
 const AddDivider = (props: AddDividerProps) => {
-
-    const { parsedXmlContent, setParsedXmlContent } = useFormData()
+    const { formName, parsedXmlContent, setParsedXmlContent } = useFormData()
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
@@ -34,7 +33,7 @@ const AddDivider = (props: AddDividerProps) => {
     const optionSelected = (value: string) => {
         console.log("Nieuw element: ", value)
         setNewElement(value)
-        setProperties(GetDefaultProperties(value))
+        setProperties(GetDefaultProperties(value, formName))
     }
 
     const addElement = () => {
@@ -59,14 +58,14 @@ const AddDivider = (props: AddDividerProps) => {
                 index: currentElement.index + 2,
                 name: `fixedtext`,
                 path: `${props.path}/0`,
-                attributes: GetDefaultProperties("fixedtext")
+                attributes: GetDefaultProperties("fixedtext", formName)
             }
 
             const childElement: FormElement = {
                 index: currentElement.index + 2,
                 name: `collection`,
                 path: `${props.path}/0`,
-                attributes: GetDefaultProperties("tab"),
+                attributes: GetDefaultProperties("tab", formName),
                 children: [
                     subChildElement
                 ]
@@ -82,7 +81,7 @@ const AddDivider = (props: AddDividerProps) => {
                 index: currentElement.index + 2,
                 name: `fixedtext`,
                 path: `${props.path}/0`,
-                attributes: GetDefaultProperties("fixedtext")
+                attributes: GetDefaultProperties("fixedtext", formName)
             }
             formElement.children = [
                 childElement

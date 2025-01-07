@@ -1,4 +1,4 @@
-import { AttributesBase } from "./AttributesBase";
+import { AttributesBase } from "./AttributesBase"
 
 export interface CheckboxCollectionAttributes extends AttributesBase {
     visible: boolean;
@@ -8,6 +8,7 @@ export interface CheckboxCollectionAttributes extends AttributesBase {
 
 export const Construct = (attributes : Record<string, string>): CheckboxCollectionAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         exportable: attributes['exportable'] === "true",
@@ -15,10 +16,11 @@ export const Construct = (attributes : Record<string, string>): CheckboxCollecti
     }
 }
 
-export const ConstructDefaultCheckboxCollection = (): CheckboxCollectionAttributes => {
+export const ConstructDefaultCheckboxCollection = (formName: string): CheckboxCollectionAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `checkboxcollection-${Date.now()}`,
+        name: `${formName}-checkboxcollection-${Date.now()}`,
         exportable: true,
         label: "Checkboxes",
     }

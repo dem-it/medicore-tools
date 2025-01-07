@@ -23,6 +23,8 @@ const Property: React.FC<PropertyProps> = (props) => {
     ]
     const isBoolean = booleanNames.includes(props.name)
 
+    const isDisabled = props.name === 'uuid'
+
     useEffect(() => {
         if (!isBoolean)
             return
@@ -69,6 +71,7 @@ const Property: React.FC<PropertyProps> = (props) => {
                     fullWidth
                     multiline={isTextArea}
                     rows={isTextArea ? 8 : undefined}
+                    disabled={isDisabled}
                     size='small'
                     label='Waarde'
                     value={value}

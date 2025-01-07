@@ -1,4 +1,4 @@
-import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes";
+import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes"
 
 export type SearchSelectAttributes = CollectionOptionsAttributes
 
@@ -6,10 +6,11 @@ export const Construct = (attributes : Record<string, string>): SearchSelectAttr
     return ConstructCollectionOptions(attributes)
 }
 
-export const ConstructDefaultSearchSelect = (): SearchSelectAttributes => {
+export const ConstructDefaultSearchSelect = (formName: string): SearchSelectAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `searchselect-${Date.now()}`,
+        name: `${formName}-searchselect-${Date.now()}`,
         exportable: true,
         label: "Selecteer met zoekfunctie",
         value: "",

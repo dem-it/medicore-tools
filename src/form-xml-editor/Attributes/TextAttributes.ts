@@ -1,5 +1,6 @@
-export interface TextAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface TextAttributes extends AttributesBase {
     label: string;
     displayLabel: boolean;
     value: string;
@@ -10,6 +11,7 @@ export interface TextAttributes {
 
 export const Construct = (attributes : Record<string, string>): TextAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -20,10 +22,11 @@ export const Construct = (attributes : Record<string, string>): TextAttributes =
     }
 }
 
-export const ConstructDefaultText = (): TextAttributes => {
+export const ConstructDefaultText = (formName: string): TextAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `text-${Date.now()}`,
+        name: `${formName}-text-${Date.now()}`,
         label: "Tekstvak",
         value: "",
         displayLabel: true,

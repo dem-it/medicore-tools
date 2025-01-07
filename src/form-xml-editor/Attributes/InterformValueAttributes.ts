@@ -1,5 +1,6 @@
-export interface InterformValueAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface InterformValueAttributes extends AttributesBase {
     label: string;
     displayLabel: boolean;
     value: string;
@@ -11,6 +12,7 @@ export interface InterformValueAttributes {
 
 export const Construct = (attributes : Record<string, string>): InterformValueAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -22,10 +24,11 @@ export const Construct = (attributes : Record<string, string>): InterformValueAt
     }
 }
 
-export const ConstructDefaultInterformValue = (): InterformValueAttributes => {
+export const ConstructDefaultInterformValue = (formName: string): InterformValueAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `interformvalue-${Date.now()}`,
+        name: `${formName}-interformvalue-${Date.now()}`,
         label: "Overerving - interform value",
         value: "",
         displayLabel: true,

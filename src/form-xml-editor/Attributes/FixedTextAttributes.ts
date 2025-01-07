@@ -10,7 +10,7 @@ export interface FixedTextAttributes extends AttributesBase {
 
 export const Construct = (attributes: Record<string, string>): FixedTextAttributes => {
     return {
-        //uuid: attributes['uuid'],
+        uuid: attributes['uuid'],
         name: attributes['name'],
         visible: attributes['visible'] === "true",
         displayLabel: attributes['displayLabel'] === "true",
@@ -20,10 +20,10 @@ export const Construct = (attributes: Record<string, string>): FixedTextAttribut
     }
 }
 
-export const ConstructDefaultFixedText = (): FixedTextAttributes => {
+export const ConstructDefaultFixedText = (formName: string): FixedTextAttributes => {
     return {
-        //uuid: '',
-        name: `tekst-${Date.now()}`,
+        uuid: '',
+        name: `${formName}-tekst-${Date.now()}`,
         visible: true,
         displayLabel: false,
         label: "",
@@ -32,8 +32,8 @@ export const ConstructDefaultFixedText = (): FixedTextAttributes => {
     }
 }
 
-export const ConstructDefaultFixedTextFat = (): FixedTextAttributes => {
-    const defaultAttributes = ConstructDefaultFixedText()
+export const ConstructDefaultFixedTextFat = (formName: string): FixedTextAttributes => {
+    const defaultAttributes = ConstructDefaultFixedText(formName)
     defaultAttributes.label = "Dikgedrukte tekst"
     defaultAttributes.displayLabel = true
     defaultAttributes.value = ''

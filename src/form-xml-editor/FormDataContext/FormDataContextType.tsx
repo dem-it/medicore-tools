@@ -1,8 +1,10 @@
-import FormElement from '../../interfaces/FormElement';
+import FormElement from '../../interfaces/FormElement'
 
 interface FormDataContextType {
     xmlContent: string;
     setXmlContent: (content: string) => void;
+
+    formName: string;
     formData: { [key: string]: any }; // Or define a specific shape for the form data
     setFormData: (data: { [key: string]: any }) => void;
     

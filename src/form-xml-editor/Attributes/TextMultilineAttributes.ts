@@ -1,5 +1,6 @@
-export interface TextMultilineAttributes {
-    name: string;
+import { AttributesBase } from './AttributesBase'
+
+export interface TextMultilineAttributes extends AttributesBase {
     label: string;
     displayLabel: boolean;
     value: string;
@@ -11,6 +12,7 @@ export interface TextMultilineAttributes {
 
 export const Construct = (attributes : Record<string, string>): TextMultilineAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         label: attributes['label'],
@@ -22,10 +24,11 @@ export const Construct = (attributes : Record<string, string>): TextMultilineAtt
     }
 }
 
-export const ConstructDefaultTextMultiline = (): TextMultilineAttributes => {
+export const ConstructDefaultTextMultiline = (formName: string): TextMultilineAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `textmultiline-${Date.now()}`,
+        name: `${formName}-textmultiline-${Date.now()}`,
         label: "Tekstvak meerdere regels",
         value: "",
         displayLabel: true,

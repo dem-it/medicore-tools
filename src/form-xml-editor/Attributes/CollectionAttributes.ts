@@ -1,5 +1,6 @@
-export interface CollectionAttributes {
-    name: string;
+import { AttributesBase } from "./AttributesBase"
+
+export interface CollectionAttributes extends AttributesBase {
     visible: boolean;
     style: string;
     tabtype: string;
@@ -24,6 +25,7 @@ export enum CollectionStyle {
 
 export const Construct = (attributes: Record<string, string>): CollectionAttributes => {
     return {
+        uuid: attributes['uuid'],
         visible: attributes['visible'] === "true",
         name: attributes['name'],
         exportable: attributes['exportable'] === "true",
@@ -45,10 +47,11 @@ export const ConstructTable = (attributes: Record<string, string>): CollectionTa
     return result
 }
 
-export const ConstructDefaultTable = (): CollectionTableAttributes => {
+export const ConstructDefaultTable = (formName: string): CollectionTableAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `table-${Date.now()}`,
+        name: `${formName}-table-${Date.now()}`,
         exportable: true,
         tabtype: "",
         style: CollectionStyle.Table,
@@ -57,10 +60,11 @@ export const ConstructDefaultTable = (): CollectionTableAttributes => {
     }
 }
 
-export const ConstructDefaultBox = (): CollectionBoxAttributes => {
+export const ConstructDefaultBox = (formName: string): CollectionBoxAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `box-${Date.now()}`,
+        name: `${formName}-box-${Date.now()}`,
         exportable: true,
         tabtype: "",
         style: CollectionStyle.Box,
@@ -68,20 +72,22 @@ export const ConstructDefaultBox = (): CollectionBoxAttributes => {
     }
 }
 
-export const ConstructDefaultTabs = (): CollectionAttributes => {
+export const ConstructDefaultTabs = (formName: string): CollectionAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `tabs-${Date.now()}`,
+        name: `${formName}-tabs-${Date.now()}`,
         exportable: true,
         tabtype: "horizontal",
         style: CollectionStyle.Tabs
     }
 }
 
-export const ConstructDefaultTab = (): CollectionAttributes => {
+export const ConstructDefaultTab = (formName: string): CollectionAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `Tabblad: ${Date.now()}`,
+        name: `${formName}-Tabblad: ${Date.now()}`,
         exportable: true,
         tabtype: "",
         style: CollectionStyle.Tab

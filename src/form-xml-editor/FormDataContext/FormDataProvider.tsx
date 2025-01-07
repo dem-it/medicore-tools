@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import FormElement from '../../interfaces/FormElement'
 import ConstructXmlService from '../../services/ConstructXmlService'
+import FormElementService from '../../services/FormElementService'
 import FormDataContextType from './FormDataContextType'
 import FormDataProviderProps from './FormDataProviderProps'
 
@@ -14,7 +15,22 @@ export const useFormData = (): FormDataContextType => {
   return context
 }
 
+const getFormName = (parsedXmlContent: FormElement | undefined): string => {
+  const service = new FormElementService(parsedXmlContent!)
+  const formElement = service.getByPath("[0]EmrXmlImport.[1]templateform")
+  if(!formElement)
+    return ''
+  const attributeName = formElement.attributes.name
+  if (!attributeName)
+    return ''
+
+  //remove all characters except letters and spaces
+  //replace spaces with underscores
+  return attributeName.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/\s/g, '_')
+}
+
 export const FormDataProvider = ({ children }: FormDataProviderProps) => {
+  const [formName, setFormName] = useState<string>('')
   const [formData, setFormData] = useState<{ [key: string]: any }>({})
   const [xmlContent, setXmlContent] = useState<string>('')
   const [parsedXmlContent, setParsedXmlContent] = useState<FormElement | undefined>(undefined)
@@ -23,6 +39,10 @@ export const FormDataProvider = ({ children }: FormDataProviderProps) => {
   useEffect(() => {
     if (parsedXmlContent === undefined)
       return
+
+    //Find the templateform element and update the formname
+    setFormName(getFormName(parsedXmlContent))
+
 
     const constructService = new ConstructXmlService()
     const xml = constructService.constructXml(parsedXmlContent)
@@ -35,6 +55,7 @@ export const FormDataProvider = ({ children }: FormDataProviderProps) => {
   }
 
   const value = {
+    formName,
     formData,
     setFormData,
     xmlContent,

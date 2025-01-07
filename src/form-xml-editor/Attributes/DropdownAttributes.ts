@@ -1,4 +1,4 @@
-import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes";
+import { CollectionOptionsAttributes, Construct as ConstructCollectionOptions } from "./CollectionOptionsAttributes"
 
 export type DropdownAttributes = CollectionOptionsAttributes
 
@@ -6,10 +6,11 @@ export const Construct = (attributes : Record<string, string>): DropdownAttribut
     return ConstructCollectionOptions(attributes)
 }
 
-export const ConstructDefaultDropdown = (): DropdownAttributes => {
+export const ConstructDefaultDropdown = (formName: string): DropdownAttributes => {
     return {
+        uuid: '',
         visible: true,
-        name: `dropdown-${Date.now()}`,
+        name: `${formName}-dropdown-${Date.now()}`,
         exportable: true,
         label: "Dropdown",
         value: "",

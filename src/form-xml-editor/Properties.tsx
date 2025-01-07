@@ -18,7 +18,7 @@ import Property from "./Property"
 
 const Properties: React.FC<FormProps> = (props) => {
 
-  const { selectedElementPath, setSelectedElementPath, parsedXmlContent, setParsedXmlContent } = useFormData()
+  const { formName, selectedElementPath, setSelectedElementPath, parsedXmlContent, setParsedXmlContent } = useFormData()
 
   const [selectedElement, setSelectedElement] = useState<FormElement | undefined>(undefined)
   const [properties, setProperties] = useState<Record<string, string>>({})
@@ -79,26 +79,26 @@ const Properties: React.FC<FormProps> = (props) => {
     switch (supportedAddElement.name) {
       case 'checkboxcollection':
         childElement.name = 'checkbox'
-        childElement.attributes = GetDefaultProperties('checkbox')
+        childElement.attributes = GetDefaultProperties('checkbox', formName)
         break
 
       case 'radio':
       case 'searchselect':
       case 'dropdown':
         childElement.name = 'option'
-        childElement.attributes = GetDefaultProperties('option')
+        childElement.attributes = GetDefaultProperties('option', formName)
         break
 
       case 'collection-tabs':
         {
           childElement.name = 'collection'
-          childElement.attributes = GetDefaultProperties('tab')
+          childElement.attributes = GetDefaultProperties('tab', formName)
 
           const subChildElement: FormElement = {
             index: selectedElement!.index + 2,
             name: `fixedtext`,
             path: `${selectedElement!.path}/1`,
-            attributes: GetDefaultProperties("fixedtext")
+            attributes: GetDefaultProperties("fixedtext", formName)
           }
           childElement.children = [
             subChildElement
