@@ -29,11 +29,10 @@ class ConstructXmlService {
             doc.appendChild(root)
         }
         else {
-            console.log(formElement)
             const root = this.constructElement(doc, formElement)
             doc.appendChild(root)
         }
-
+        
         const xmlString = new XMLSerializer().serializeToString(doc)
         return xmlString
     }

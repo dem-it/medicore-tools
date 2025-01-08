@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import FormElement from '../../interfaces/FormElement'
 import ConstructXmlService from '../../services/ConstructXmlService'
 import FormElementService from '../../services/FormElementService'
+import { deepClone } from '../../utilities/ObjectUtilities'
 import FormDataContextType from './FormDataContextType'
 import FormDataProviderProps from './FormDataProviderProps'
 
@@ -43,16 +44,11 @@ export const FormDataProvider = ({ children }: FormDataProviderProps) => {
     //Find the templateform element and update the formname
     setFormName(getFormName(parsedXmlContent))
 
-
     const constructService = new ConstructXmlService()
     const xml = constructService.constructXml(parsedXmlContent)
     setXmlContent(xml)
 
   }, [parsedXmlContent])
-
-  const deepClone = (obj: any) => {
-    return JSON.parse(JSON.stringify(obj))
-  }
 
   const value = {
     formName,

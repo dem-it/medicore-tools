@@ -167,7 +167,8 @@ const Properties: React.FC<FormProps> = (props) => {
       return
 
     const newXml = new ConstructXmlService().constructXml(element!, true)
-    setXml(newXml)
+    setXml(newXml)    
+    setProperties(element?.attributes || {})
 
     // Only want to check if the properties are Changed
     // eslint-disable-next-line
@@ -181,7 +182,7 @@ const Properties: React.FC<FormProps> = (props) => {
     const element = service.getByPath(selectedElementPath)
     setProperties(element?.attributes || {})
 
-    // Only want to check if the properties are Changed
+    // Only want to check if the properties or xml are Changed
     // eslint-disable-next-line
   }, [properties])
 
@@ -223,19 +224,10 @@ const Properties: React.FC<FormProps> = (props) => {
             {!hasProperties && <p>Geen eigenschappen gevonden om aan te passen.</p>}
 
             <Grid container spacing={2}>
-              {Object.entries(properties)
-                .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-                .map(([key, value]) => (
-                  <Property
-                    key={`${selectedElementPath}-${key}`}
-                    parentElement={selectedElement}
-                    path={selectedElementPath!}
-                    name={key}
-                    value={value}
-                  />
-                ))}
+              <PropertiesView properties={properties}
+                selectedElement={selectedElement!}
+                selectedElementPath={selectedElementPath!} />
             </Grid>
-
 
             <Accordion>
               <AccordionSummary
@@ -254,6 +246,35 @@ const Properties: React.FC<FormProps> = (props) => {
       </Card>
     </>
   )
+}
+
+interface PropertiesViewProps {
+  properties: Record<string, string>,
+  selectedElement: FormElement,
+  selectedElementPath: string
+}
+
+const PropertiesView = (props: PropertiesViewProps) => {
+
+  const [propertiesEntries, setPropertiesEntries] = useState(Object.entries(props.properties))
+
+  useEffect(() => {
+    setPropertiesEntries(Object.entries(props.properties))
+  }, [props.properties])
+
+  return <>
+    {propertiesEntries
+      .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+      .map(([key, value]) => (
+        <Property
+          key={`${props.selectedElementPath}-${key}`}
+          parentElement={props.selectedElement}
+          path={props.selectedElementPath!}
+          name={key}
+          value={value}
+        />
+      ))}
+  </>
 }
 
 export default Properties

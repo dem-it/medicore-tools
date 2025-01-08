@@ -13,6 +13,10 @@ const Property: React.FC<PropertyProps> = (props) => {
     const [value, setValue] = useState(props.value)
     const [booleanValue, setBooleanValue] = useState<boolean>(props.value === 'true')
 
+    useEffect(() => {
+        setValue(props.value)
+    }, [props.value])
+
     const booleanNames = [
         'mandatory',
         'visible',

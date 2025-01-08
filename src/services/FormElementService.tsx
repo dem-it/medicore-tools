@@ -1,4 +1,4 @@
-import FormElement from "../interfaces/FormElement";
+import FormElement from "../interfaces/FormElement"
 
 class FormElementService  
 {
@@ -60,6 +60,22 @@ class FormElementService
         }
 
         return undefined
+    }
+
+    // update all the elements by a function, so the caller can decide what to change
+    // call like this .updateAllElements(element => { element.name = 'newName' })
+    updateAllElements(updateFunction: (element: FormElement) => void) {
+        this.updateElementRecursive(this.formElement, updateFunction)
+    }
+
+    updateElementRecursive(element: FormElement, updateFunction: (element: FormElement) => void) {
+        updateFunction(element)
+
+        if (element.children) {
+            for (const child of element.children) {
+                this.updateElementRecursive(child, updateFunction)
+            }
+        }
     }
 }
 

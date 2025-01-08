@@ -22,7 +22,7 @@ const ConvertToRecord = (object: any): Record<string, string> => {
             properties[key] = String(object[key])
         }
     }
-    console.log("Properties", properties)
+    
     return properties
 }
 export const GetDefaultProperties = (element: string, formName: string): Record<string, string> => {

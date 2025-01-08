@@ -1,6 +1,7 @@
 import { Button } from "@mui/material"
 import { styled } from '@mui/system'
 import React, { useEffect, useState } from "react"
+import FormElementService from "../services/FormElementService"
 import ParseXmlElementService from '../services/ParseXmlElementService'
 import { useFormData } from './FormDataContext/FormDataProvider'
 import { FormProps } from './Interfaces'
@@ -21,6 +22,7 @@ const InputOutput: React.FC<FormProps> = () => {
 
   const {
     xmlContent,
+    parsedXmlContent,
     setSelectedElementPath,
     setParsedXmlContent
   } = useFormData()
@@ -67,6 +69,19 @@ const InputOutput: React.FC<FormProps> = () => {
     document.body.removeChild(link)
   }
 
+  function removeUuids(): void {
+    if (!xmlContent)
+      return
+
+    const formElementService = new FormElementService(parsedXmlContent!)
+    formElementService.updateAllElements(x => {
+      if(x.attributes.uuid)
+        x.attributes.uuid = ""
+    })
+    
+    setParsedXmlContent(formElementService.formElement)
+  }
+
   return <React.Fragment>
       <Button
         component="label"
@@ -91,6 +106,13 @@ const InputOutput: React.FC<FormProps> = () => {
         >
           Download XML
         </Button>
+        <Button
+          component='label'
+          role={undefined}
+          variant='contained'
+          onClick={removeUuids}>
+            Verwijder UUID&apos;s
+          </Button>
       </>}
     </React.Fragment>
 }

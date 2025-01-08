@@ -31,14 +31,11 @@ const AddDivider = (props: AddDividerProps) => {
     const id = open ? 'simple-popover' : undefined;
 
     const optionSelected = (value: string) => {
-        console.log("Nieuw element: ", value)
         setNewElement(value)
         setProperties(GetDefaultProperties(value, formName))
     }
 
     const addElement = () => {
-        console.log("Element toevoegen")
-
         const constructService = new ConstructXmlService()
         const service = new FormElementService(parsedXmlContent!)
         const currentElement = service.getByPath(props.path)!
@@ -51,7 +48,6 @@ const AddDivider = (props: AddDividerProps) => {
             path: `${props.path}/0`,
             attributes: properties
         }
-        console.log("new element")
 
         if (newElement === "collection-tabs") {
             const subChildElement: FormElement = {
